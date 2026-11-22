@@ -95,6 +95,16 @@ python3 src/live_436_benchmark.py \
 
 ---
 
+## 5. Community Contributions (`rohanarun/alpoge-rh-replay`)
+
+- **Lean `v4.36.0` Porting PRs:**
+  - [`PR #32234`](https://github.com/rohanarun/alpoge-rh-replay/pull/32234) — `Port P0189 to Lean 4.36` (completes depth-2 packet `P0189`; clean `--no-cache` build, `0` audit hits, `validate_ports.py` exit 0)
+  - [`PR #32236`](https://github.com/rohanarun/alpoge-rh-replay/pull/32236) — `Port P0196 to Lean 4.36` (completes depth-2 packet `P0196` including `MvPolynomial.coeff` → `.coeff` migration; clean `--no-cache` build, `0` audit hits, `validate_ports.py` exit 0)
+- **Lean `v4.33.1` Independent Replay:**
+  - [`P2382` (`#26536`)](https://github.com/rohanarun/alpoge-rh-replay/issues/26536) — 64 target modules + 27,817 transitive prerequisites compiled and accepted, plus warm-cache replay submissions (`M100691`, `M036503`, `M003484`, `M003638`, `M003861`, `M003041`, `M003738`, `M003907`, `M018272`, `M080966`, etc.).
+
+---
+
 ## License
 
 Licensed under the [Apache License 2.0](LICENSE) (matching the Mathlib4 standard).
