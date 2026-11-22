@@ -211,9 +211,11 @@ def attempt_module_repair(record, checkout: Path, out_dir: Path, env: dict, dep_
             pass_notes.extend(v4_notes)
             changed = True
 
-        # 3. Prune redundant closed-goal lines (`No goals to be solved`)
+        # 3. Prune redundant closed-goal lines (`No goals to be solved`) ONLY if no
+        #    renames/transforms already fired in this pass (avoids pruning cascading
+        #    lines after an unknown identifier error, e.g. M106527).
         no_goal_lines = sorted({int(m.group(1)) for m in NO_GOALS_RE.finditer(cur_err)}, reverse=True)
-        if no_goal_lines:
+        if no_goal_lines and not changed:
             lines = next_text.splitlines(keepends=True)
             pruned_nums = []
             for ln in no_goal_lines:

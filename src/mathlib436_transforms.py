@@ -419,6 +419,22 @@ def transform_mvpolynomial_coeff_zero(text: str, err: str) -> tuple[str, list[st
     return text, []
 
 
+def transform_finsupp_mapdomain_apply(text: str, err: str) -> tuple[str, list[str]]:
+    """
+    Migrate `Finsupp.mapDomain_apply` -> `Finsupp.mapDomain_apply_of_injective` when
+    Mathlib 4.36 reports an application type mismatch on the injective-function signature.
+    """
+    if "Finsupp.mapDomain_apply" not in err and "mapDomain_apply" not in err:
+        return text, []
+    if "Application type mismatch" not in err:
+        return text, []
+    rx = re.compile(r"\bFinsupp\.mapDomain_apply\b")
+    out, n = rx.subn("Finsupp.mapDomain_apply_of_injective", text)
+    if n > 0:
+        return out, [f"finsupp_mapdomain_apply_of_injective({n})"]
+    return text, []
+
+
 def apply_deterministic_v04_transforms(text: str, err: str) -> tuple[str, list[str]]:
     """Run all deterministic v0.4 transforms in safe order."""
     cur = text
@@ -431,6 +447,7 @@ def apply_deterministic_v04_transforms(text: str, err: str) -> tuple[str, list[s
         transform_is_maximal_under,
         transform_ldl_lower_inv_triangular,
         transform_power_series_ddx,
+        transform_finsupp_mapdomain_apply,
         transform_invalid_alt_zero,
         transform_noncomputable_def,
     ):

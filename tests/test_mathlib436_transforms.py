@@ -6,6 +6,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from mathlib436_transforms import (
     aemeasurable_candidates,
+    transform_finsupp_mapdomain_apply,
     transform_invalid_alt_zero,
     transform_is_maximal_under,
     transform_ldl_lower_inv_triangular,
@@ -116,6 +117,14 @@ def test_mvpolynomial_coeff_zero():
     out, notes = transform_mvpolynomial_coeff_zero(src, err)
     assert "  simp only [AddMonoidAlgebra.coeff_zero, Finsupp.zero_apply]\n" in out, out
     assert notes == ["mvpoly_coeff_zero(1)"]
+
+
+def test_finsupp_mapdomain_apply():
+    src = "    exact (Finsupp.mapDomain_apply hinj (ν k) ((), i)).symm\n"
+    err = "foo.lean:86:35: error: Application type mismatch: Finsupp.mapDomain_apply hinj"
+    out, notes = transform_finsupp_mapdomain_apply(src, err)
+    assert "Finsupp.mapDomain_apply_of_injective hinj" in out, out
+    assert notes == ["finsupp_mapdomain_apply_of_injective(1)"]
 
 
 if __name__ == "__main__":
