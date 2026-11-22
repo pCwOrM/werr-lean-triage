@@ -1,0 +1,2159 @@
+{
+  "version": "v0.4-multipass-transforms",
+  "mode": "ALL-LANES",
+  "timestamp_utc": "2026-11-22T12:34:08Z",
+  "target_lean": "leanprover/lean4:v4.36.0",
+  "target_mathlib": "fc4f59e577feb1a4956671bc04ac18aaaf8cd842",
+  "official_mathlib_renames_loaded": 5703,
+  "curated_renames_loaded": 7,
+  "workers": 10,
+  "evaluated_failures": 451,
+  "verified_fixed_count": 151,
+  "verified_fix_rate_pct": 33.48,
+  "system1_subset_evaluated": 267,
+  "system1_subset_fixed": 115,
+  "system1_subset_fix_rate_pct": 43.07,
+  "lane_d_e_bonus_fixed": 36,
+  "wall_seconds": 1210.2,
+  "fixed_modules": [
+    {
+      "id": "M000028",
+      "module": "CompanionTheory.AutomorphicTheory.BesselWaveGrids.InterlacingGrids.CloudProd",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:prod_le_prod_of_subset_of_one_le->prod_le_prod_of_subset_of_one_le₀; prod_mono:prod_le_prod->prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:prod_le_prod_of_subset_of_one_le->prod_le_prod_of_subset_of_one_le₀",
+        "prod_mono:prod_le_prod->prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.05
+    },
+    {
+      "id": "M000030",
+      "module": "CompanionTheory.AutomorphicTheory.BesselWaveGrids.InterlacingGrids.GridSum",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "typeclass_synthesis",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀; prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.57
+    },
+    {
+      "id": "M000031",
+      "module": "CompanionTheory.AutomorphicTheory.BesselWaveGrids.InterlacingGrids.LagSum",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "typeclass_synthesis",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.5
+    },
+    {
+      "id": "M000069",
+      "module": "CompanionTheory.AutomorphicTheory.HeckeStandardModules.ExistsCen",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "app_type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal",
+      "raw_ops": [
+        "rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal"
+      ],
+      "attempts": 1,
+      "elapsed_s": 42.58
+    },
+    {
+      "id": "M000495",
+      "module": "CompanionTheory.HarishChandraModules.BesselParameterIntegrals.ContDiffOnExpPartialHomeomorphSymm",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "other",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): noncomputable:L[216, 224]",
+      "raw_ops": [
+        "noncomputable:L[216, 224]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 35.1
+    },
+    {
+      "id": "M000526",
+      "module": "CompanionTheory.HarishChandraModules.KFiniteAnalyticVectors.AdmissibleSmoothVectors.IwaChol",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): ldl_lower_inv_triangular(1)",
+      "raw_ops": [
+        "ldl_lower_inv_triangular(1)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.82
+    },
+    {
+      "id": "M000920",
+      "module": "CompanionTheory.SpectralGeometry.LocalGlobalProofs.AdelicAnalysis.FiniteCovolumeUnimodular",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_C_TACTIC_CLOSER",
+      "gt_category": "unsolved_goals",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): aemeasurable:exact continuous_inv.aemeasurable@L42",
+      "raw_ops": [
+        "aemeasurable:exact continuous_inv.aemeasurable@L42"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.44
+    },
+    {
+      "id": "M002162",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.DivisorBase.MultiplicationKernelIdentity",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Polynomial.eval₂_finset_prod->Polynomial.eval₂_finsetProd",
+      "raw_ops": [
+        "rename:Polynomial.eval₂_finset_prod->Polynomial.eval₂_finsetProd"
+      ],
+      "attempts": 1,
+      "elapsed_s": 32.2
+    },
+    {
+      "id": "M002361",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.HeightDefect.SphereBlockLogMean",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(7); aemeasurable:exact hc.measurable.aemeasurable@L64",
+      "raw_ops": [
+        "mvpoly_coeff_dot(7)",
+        "aemeasurable:exact hc.measurable.aemeasurable@L64"
+      ],
+      "attempts": 2,
+      "elapsed_s": 36.11
+    },
+    {
+      "id": "M002399",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.JetGauges.NodalSeriesPeriods",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "app_type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): powerseries_ddx_implicit_ring(1)",
+      "raw_ops": [
+        "powerseries_ddx_implicit_ring(1)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.23
+    },
+    {
+      "id": "M002422",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.JetGauges.TraceFormDualSystem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "other",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): noncomputable:L[155]",
+      "raw_ops": [
+        "noncomputable:L[155]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 34.76
+    },
+    {
+      "id": "M002620",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.TorsionBlocks.LowerUnipotentMinors",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(2)",
+      "raw_ops": [
+        "mvpoly_coeff_dot(2)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 21.66
+    },
+    {
+      "id": "M002899",
+      "module": "Development.AbelianVarietyTheory.Counterexamples.LevelGroupExamples.RightInvariantOfCovolume",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_C_TACTIC_CLOSER",
+      "gt_category": "unsolved_goals",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): aemeasurable:fun_prop@L106",
+      "raw_ops": [
+        "aemeasurable:fun_prop@L106"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.07
+    },
+    {
+      "id": "M005486",
+      "module": "Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.ExistsIsUnitFormSelfOfNotMem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_C_TACTIC_CLOSER",
+      "gt_category": "unsolved_goals",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal",
+      "raw_ops": [
+        "rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal"
+      ],
+      "attempts": 1,
+      "elapsed_s": 29.14
+    },
+    {
+      "id": "M006224",
+      "module": "Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.ExistsBasicOpenEqZeroOfMemIInfPowSmul",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "invalid_alternative_name",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_dead_zero_alt:L[150]",
+      "raw_ops": [
+        "prune_dead_zero_alt:L[150]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 32.59
+    },
+    {
+      "id": "M006330",
+      "module": "Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.LengthRestrictScalarsEqSumInertiaDegOfSubset",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "other",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal",
+      "raw_ops": [
+        "rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal"
+      ],
+      "attempts": 1,
+      "elapsed_s": 27.13
+    },
+    {
+      "id": "M006411",
+      "module": "Development.AbelianVarietyTheory.Proofs.CovolumeBounds.EntireApplyEqOfPeriodicOfSpanReal",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum",
+      "raw_ops": [
+        "rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 24.62
+    },
+    {
+      "id": "M006484",
+      "module": "Development.AbelianVarietyTheory.Proofs.CovolumeBounds.OneLeDetOneAdd",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 23.33
+    },
+    {
+      "id": "M007174",
+      "module": "Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsNatSmulCoeffIsIntegral",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(1)",
+      "raw_ops": [
+        "mvpoly_coeff_dot(1)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.91
+    },
+    {
+      "id": "M008087",
+      "module": "Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ContDiffCompactAverageOfClosedPartials",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:integral_finset_sum->integral_finsetSum",
+      "raw_ops": [
+        "rename:integral_finset_sum->integral_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 28.22
+    },
+    {
+      "id": "M012739",
+      "module": "Development.AbelianVarietyTheory.Proofs.DegenerationProofs.CompCMulMap",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:AddMonoidHom.finset_sum_apply->AddMonoidHom.finsetSum_apply",
+      "raw_ops": [
+        "rename:AddMonoidHom.finset_sum_apply->AddMonoidHom.finsetSum_apply"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.54
+    },
+    {
+      "id": "M012954",
+      "module": "Development.AbelianVarietyTheory.Proofs.DegenerationProofs.ExistsFormLimitIdeal",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(11)",
+      "raw_ops": [
+        "mvpoly_coeff_dot(11)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.22
+    },
+    {
+      "id": "M013024",
+      "module": "Development.AbelianVarietyTheory.Proofs.DegenerationProofs.ExistsIntegralExtIsAlgClosedResidueField",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "app_type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal",
+      "raw_ops": [
+        "rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal"
+      ],
+      "attempts": 1,
+      "elapsed_s": 36.32
+    },
+    {
+      "id": "M014160",
+      "module": "Development.AbelianVarietyTheory.Proofs.DegenerationProofs.UnitOnProductEqOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum",
+      "raw_ops": [
+        "rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 64.39
+    },
+    {
+      "id": "M016244",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.BasisApply",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:DistribMulAction.toAddMonoidHom->DistribSMul.toAddMonoidHom",
+      "raw_ops": [
+        "rename:DistribMulAction.toAddMonoidHom->DistribSMul.toAddMonoidHom"
+      ],
+      "attempts": 1,
+      "elapsed_s": 21.89
+    },
+    {
+      "id": "M018207",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.CoeffAnnihilatedOfAevalMemKerPow",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(14)",
+      "raw_ops": [
+        "mvpoly_coeff_dot(14)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 21.38
+    },
+    {
+      "id": "M019614",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ContinuousAtCharSeriesCoefZero",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:tendsto_finset_sum->tendsto_finsetSum",
+      "raw_ops": [
+        "rename:tendsto_finset_sum->tendsto_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.3
+    },
+    {
+      "id": "M020197",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.CurveLieLatticeDegree",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Ideal.bot_prime->Ideal.isPrime_bot",
+      "raw_ops": [
+        "rename:Ideal.bot_prime->Ideal.isPrime_bot"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.32
+    },
+    {
+      "id": "M020874",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.DenseAnalyticGrowthSchwartz",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:SchwartzMap.fourierTransformCLE->FourierTransform.fourierCLE",
+      "raw_ops": [
+        "rename:SchwartzMap.fourierTransformCLE->FourierTransform.fourierCLE"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.22
+    },
+    {
+      "id": "M020963",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.DerivationExtendMvPolynomial",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(4)",
+      "raw_ops": [
+        "mvpoly_coeff_dot(4)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.06
+    },
+    {
+      "id": "M021551",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.DixmierSchurOfRankLeAleph0",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:eval_finset_sum->eval_finsetSum",
+      "raw_ops": [
+        "rename:eval_finset_sum->eval_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.3
+    },
+    {
+      "id": "M021587",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.DoubleCosetSumFundamentalDomain",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuous_mul_right->continuous_mul_const; rename:integral_finset_sum->integral_finsetSum",
+      "raw_ops": [
+        "rename:continuous_mul_right->continuous_mul_const",
+        "rename:integral_finset_sum->integral_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.44
+    },
+    {
+      "id": "M022868",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.EtaleIntegralClosureTensorOfEtaleOfIsIntegral",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "invalid_alternative_name",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_dead_zero_alt:L[21]",
+      "raw_ops": [
+        "prune_dead_zero_alt:L[21]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.94
+    },
+    {
+      "id": "M023687",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsBasisModN",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:IsLocalization.map_comap->IsLocalization.map_under",
+      "raw_ops": [
+        "rename:IsLocalization.map_comap->IsLocalization.map_under"
+      ],
+      "attempts": 1,
+      "elapsed_s": 23.08
+    },
+    {
+      "id": "M026341",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsInjectiveNormLeOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Polynomial.eval₂_finset_sum->Polynomial.eval₂_finsetSum",
+      "raw_ops": [
+        "rename:Polynomial.eval₂_finset_sum->Polynomial.eval₂_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 15.81
+    },
+    {
+      "id": "M026435",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsIntegralInvOneAddPrimeMulPadic",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "app_type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal",
+      "raw_ops": [
+        "rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.43
+    },
+    {
+      "id": "M026517",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsInvariantPosDefHermitian",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuous_finset_sum->continuous_finsetSum",
+      "raw_ops": [
+        "rename:continuous_finset_sum->continuous_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.46
+    },
+    {
+      "id": "M028335",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsPowEqOneIsUnitOneSubPow",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum",
+      "raw_ops": [
+        "rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 14.9
+    },
+    {
+      "id": "M030616",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExpNegLeNormTprodOneSubInv",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.76
+    },
+    {
+      "id": "M030617",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExpSumCoeffEqZeroOfVanishing",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:integral_finset_sum->integral_finsetSum; rename:tendsto_finset_sum->tendsto_finsetSum; rename:tendsto_finset_prod->tendsto_finsetProd",
+      "raw_ops": [
+        "rename:integral_finset_sum->integral_finsetSum",
+        "rename:tendsto_finset_sum->tendsto_finsetSum",
+        "rename:tendsto_finset_prod->tendsto_finsetProd"
+      ],
+      "attempts": 2,
+      "elapsed_s": 118.23
+    },
+    {
+      "id": "M031586",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.FinrankEqZeroOfDualKilledByTensor",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "raw_ops": [
+        "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.76
+    },
+    {
+      "id": "M033297",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.FundamentalDomainUnfoldSubgroup",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Measurable.ennreal_tsum->Measurable.tsum",
+      "raw_ops": [
+        "rename:Measurable.ennreal_tsum->Measurable.tsum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 21.62
+    },
+    {
+      "id": "M034778",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.HasSumConjClassesRegroupWithInvariantSelection",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:summable_of_finite_support->summable_of_hasFiniteSupport",
+      "raw_ops": [
+        "rename:summable_of_finite_support->summable_of_hasFiniteSupport"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.85
+    },
+    {
+      "id": "M036410",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ImportsAlt",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:IsLocalization.map_comap->IsLocalization.map_under",
+      "raw_ops": [
+        "rename:IsLocalization.map_comap->IsLocalization.map_under"
+      ],
+      "attempts": 1,
+      "elapsed_s": 15.31
+    },
+    {
+      "id": "M037018",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralDoubleSeriesInterchange",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:integral_finset_sum->integral_finsetSum; rename:integrable_finset_sum->integrable_finsetSum",
+      "raw_ops": [
+        "rename:integral_finset_sum->integral_finsetSum",
+        "rename:integrable_finset_sum->integrable_finsetSum"
+      ],
+      "attempts": 2,
+      "elapsed_s": 23.26
+    },
+    {
+      "id": "M037067",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralFundamentalDomainEqSum",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:integrable_finset_sum->integrable_finsetSum; rename:integral_finset_sum->integral_finsetSum",
+      "raw_ops": [
+        "rename:integrable_finset_sum->integrable_finsetSum",
+        "rename:integral_finset_sum->integral_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.43
+    },
+    {
+      "id": "M037084",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralHasSumEqIntegralIndicatorHasSum",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:integral_finset_sum->integral_finsetSum",
+      "raw_ops": [
+        "rename:integral_finset_sum->integral_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 15.15
+    },
+    {
+      "id": "M037633",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsAlgebraicOfFiniteTypeOfComapEqBot",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:IsLocalization.map_comap->IsLocalization.map_under",
+      "raw_ops": [
+        "rename:IsLocalization.map_comap->IsLocalization.map_under"
+      ],
+      "attempts": 1,
+      "elapsed_s": 23.79
+    },
+    {
+      "id": "M038222",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsIntegralConeRingOfForallValuationSubring",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Polynomial.eval₂_finset_sum->Polynomial.eval₂_finsetSum",
+      "raw_ops": [
+        "rename:Polynomial.eval₂_finset_sum->Polynomial.eval₂_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 23.32
+    },
+    {
+      "id": "M039413",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IteratedFderivParametricUniformBound",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.88
+    },
+    {
+      "id": "M039724",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.KerCounitAlgHomBaseChangeField",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "invalid_alternative_name",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_dead_zero_alt:L[20]",
+      "raw_ops": [
+        "prune_dead_zero_alt:L[20]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.3
+    },
+    {
+      "id": "M040219",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.LatticeCountIntegrableBound",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:lintegral_finset_sum->lintegral_finsetSum",
+      "raw_ops": [
+        "rename:lintegral_finset_sum->lintegral_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 15.29
+    },
+    {
+      "id": "M042170",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.LocallyConstantCompactSupportInvariantOpenAddSub",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuous_add_left->continuous_const_add",
+      "raw_ops": [
+        "rename:continuous_add_left->continuous_const_add"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.84
+    },
+    {
+      "id": "M043370",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.MemSubfieldOfBilinFormBasisMonomials",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:AddSubmonoidClass.coe_finset_sum->AddSubmonoidClass.coe_finsetSum",
+      "raw_ops": [
+        "rename:AddSubmonoidClass.coe_finset_sum->AddSubmonoidClass.coe_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 21.06
+    },
+    {
+      "id": "M043932",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.MulTensorInjectiveOfFlatBaseChangeKerInf",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "invalid_alternative_name",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_dead_zero_alt:L[115, 99]",
+      "raw_ops": [
+        "prune_dead_zero_alt:L[115, 99]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 29.9
+    },
+    {
+      "id": "M044247",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.NilpotentExpLogSeries",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:eval_finset_sum->eval_finsetSum",
+      "raw_ops": [
+        "rename:eval_finset_sum->eval_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.85
+    },
+    {
+      "id": "M044251",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.NilpotentTwistCharacterContinuous",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuous_finset_sum->continuous_finsetSum",
+      "raw_ops": [
+        "rename:continuous_finset_sum->continuous_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.57
+    },
+    {
+      "id": "M044443",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.NormCompHomogeneousIsHomogeneous",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(3)",
+      "raw_ops": [
+        "mvpoly_coeff_dot(3)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 25.21
+    },
+    {
+      "id": "M044535",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.NormLeOneOfExtension",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "other",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Polynomial.eval₂_finset_sum->Polynomial.eval₂_finsetSum; rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal",
+      "raw_ops": [
+        "rename:Polynomial.eval₂_finset_sum->Polynomial.eval₂_finsetSum",
+        "rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.5
+    },
+    {
+      "id": "M044581",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.NormRootLeMaxOneSumNormCoeff",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 15.67
+    },
+    {
+      "id": "M044618",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.NormUnitLeOfEsymm",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum",
+      "raw_ops": [
+        "rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 15.91
+    },
+    {
+      "id": "M044933",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.OneSubProdLeSumOfLe",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "app_type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.77
+    },
+    {
+      "id": "M046080",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.PolarizationDerivativeVanish",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum; poly_coeff_dot(1); rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff",
+      "raw_ops": [
+        "rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum",
+        "poly_coeff_dot(1)",
+        "rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff"
+      ],
+      "attempts": 2,
+      "elapsed_s": 21.98
+    },
+    {
+      "id": "M046242",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.PosDefExistsConjTransposeMulMulEqOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "no_goals_to_be_solved",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_closed:L[48]",
+      "raw_ops": [
+        "prune_closed:L[48]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.17
+    },
+    {
+      "id": "M046252",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.PosSemidefQuadraticAdjointPairBound",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:AddMonoidHom.finset_sum_apply->AddMonoidHom.finsetSum_apply",
+      "raw_ops": [
+        "rename:AddMonoidHom.finset_sum_apply->AddMonoidHom.finsetSum_apply"
+      ],
+      "attempts": 1,
+      "elapsed_s": 23.76
+    },
+    {
+      "id": "M046312",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.PowCardLeNormProd",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): poly_coeff_dot(1)",
+      "raw_ops": [
+        "poly_coeff_dot(1)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 14.8
+    },
+    {
+      "id": "M046318",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.PowDivMemOfEsymmPowDivMem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:eval_finset_sum->eval_finsetSum",
+      "raw_ops": [
+        "rename:eval_finset_sum->eval_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.46
+    },
+    {
+      "id": "M046672",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ProdRpowDecayIsBigOCocompact",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.48
+    },
+    {
+      "id": "M048265",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ResidueNormalOfProfiniteInvariants",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "app_type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal",
+      "raw_ops": [
+        "rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal"
+      ],
+      "attempts": 1,
+      "elapsed_s": 21.8
+    },
+    {
+      "id": "M049089",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.SchwartzTaylorPartialSumDerivBound",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.41
+    },
+    {
+      "id": "M049661",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.SemilinearRankComparison",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "raw_ops": [
+        "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply"
+      ],
+      "attempts": 1,
+      "elapsed_s": 45.8
+    },
+    {
+      "id": "M050649",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.SpanRangeInfKerEqSpanRationalKer",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "raw_ops": [
+        "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.68
+    },
+    {
+      "id": "M053808",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.TotalDegreeLeOfIntegralAtInfinity",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:totalDegree_finset_sum->totalDegree_finsetSum",
+      "raw_ops": [
+        "rename:totalDegree_finset_sum->totalDegree_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.46
+    },
+    {
+      "id": "M055002",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.UnipotentMatrixCoefficientsMem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuous_finset_sum->continuous_finsetSum",
+      "raw_ops": [
+        "rename:continuous_finset_sum->continuous_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.16
+    },
+    {
+      "id": "M055799",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.VanishingOfProjectionSupport",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:lintegral_finset_sum->lintegral_finsetSum",
+      "raw_ops": [
+        "rename:lintegral_finset_sum->lintegral_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 31.25
+    },
+    {
+      "id": "M056615",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ZetaTermTsumLeTwo",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "typeclass_synthesis",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.27
+    },
+    {
+      "id": "M058579",
+      "module": "Development.AbelianVarietyTheory.Proofs.FlagMeasures.ImportsLast",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.04
+    },
+    {
+      "id": "M058666",
+      "module": "Development.AbelianVarietyTheory.Proofs.FlagMeasures.IntegralNonnegOfSums",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:integral_finset_sum->integral_finsetSum; rename:integrable_finset_sum->integrable_finsetSum",
+      "raw_ops": [
+        "rename:integral_finset_sum->integral_finsetSum",
+        "rename:integrable_finset_sum->integrable_finsetSum"
+      ],
+      "attempts": 2,
+      "elapsed_s": 29.25
+    },
+    {
+      "id": "M059621",
+      "module": "Development.AbelianVarietyTheory.Proofs.FlagMeasures.PackingGeometricMeanSeparated",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.21
+    },
+    {
+      "id": "M060065",
+      "module": "Development.AbelianVarietyTheory.Proofs.FlagMeasures.SizeIntegralsAndCardCompositions",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.11
+    },
+    {
+      "id": "M060235",
+      "module": "Development.AbelianVarietyTheory.Proofs.FlagMeasures.SummableAndTsumLeOfBoxCount",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.22
+    },
+    {
+      "id": "M061523",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsBimultiplicativeOfSecondQuotConst",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "invalid_alternative_name",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_dead_zero_alt:L[302]",
+      "raw_ops": [
+        "prune_dead_zero_alt:L[302]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 27.85
+    },
+    {
+      "id": "M061929",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsPowSmulMemRangeOfSurjectiveBaseChange",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "other",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_dead_zero_alt:L[618, 577]",
+      "raw_ops": [
+        "prune_dead_zero_alt:L[618, 577]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 94.98
+    },
+    {
+      "id": "M062550",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.ImportsAlt",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:eval₂_finset_sum->eval₂_finsetSum",
+      "raw_ops": [
+        "rename:eval₂_finset_sum->eval₂_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.52
+    },
+    {
+      "id": "M062731",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.IsLeftCoactionIffIsCoactionComm",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "invalid_alternative_name",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_dead_zero_alt:L[84, 77, 69, 62]",
+      "raw_ops": [
+        "prune_dead_zero_alt:L[84, 77, 69, 62]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.98
+    },
+    {
+      "id": "M062816",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.JetRelOfWeierstrassSystem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "no_goals_to_be_solved",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_closed:L[40]",
+      "raw_ops": [
+        "prune_closed:L[40]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 21.44
+    },
+    {
+      "id": "M063176",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.MonicFactorCoeffNatDegreeLe",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:finset_sum_coeff->finsetSum_coeff",
+      "raw_ops": [
+        "rename:finset_sum_coeff->finsetSum_coeff"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.24
+    },
+    {
+      "id": "M063438",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.PowFixedOfAlgebraic",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): poly_coeff_dot(1)",
+      "raw_ops": [
+        "poly_coeff_dot(1)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.72
+    },
+    {
+      "id": "M063781",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.SplitHeightSummableExpNegAbs",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.35
+    },
+    {
+      "id": "M063878",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.SummableRpowOfFibreCardLe",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Real.finset_prod_rpow->Real.finsetProd_rpow",
+      "raw_ops": [
+        "rename:Real.finset_prod_rpow->Real.finsetProd_rpow"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.67
+    },
+    {
+      "id": "M066446",
+      "module": "Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.ExistsOneTmulOfForallFixed",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum; prune_dead_zero_alt:L[143]",
+      "raw_ops": [
+        "rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum",
+        "prune_dead_zero_alt:L[143]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 23.58
+    },
+    {
+      "id": "M066465",
+      "module": "Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.FinrankOfIsStandardSmoothOfRelativeDimension",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "invalid_alternative_name",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_dead_zero_alt:L[610, 605, 594, 587, 552, 202]",
+      "raw_ops": [
+        "prune_dead_zero_alt:L[610, 605, 594, 587, 552, 202]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 68.82
+    },
+    {
+      "id": "M066483",
+      "module": "Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.IsDomainAndIsIntegrallyClosedAtPrimeOfSmoothOfCo",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "invalid_alternative_name",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:IsLocalization.comap_map_of_isPrime_disjoint->IsLocalization.under_map_of_isPrime_disjoint; prune_dead_zero_alt:L[110]",
+      "raw_ops": [
+        "rename:IsLocalization.comap_map_of_isPrime_disjoint->IsLocalization.under_map_of_isPrime_disjoint",
+        "prune_dead_zero_alt:L[110]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 35.0
+    },
+    {
+      "id": "M067292",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.CenterMonoidAlgebraLeSpanCentralIntegral",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply; rename:MonoidAlgebra.mapRangeRingHom_single->MonoidAlgebra.mapRingHom_single",
+      "raw_ops": [
+        "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+        "rename:MonoidAlgebra.mapRangeRingHom_single->MonoidAlgebra.mapRingHom_single"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.51
+    },
+    {
+      "id": "M067529",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.CoeffZeroSmulMemMap",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): poly_coeff_dot(1)",
+      "raw_ops": [
+        "poly_coeff_dot(1)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.04
+    },
+    {
+      "id": "M068383",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.EmbeddingIntegralContinuous",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:eval_finset_sum->eval_finsetSum",
+      "raw_ops": [
+        "rename:eval_finset_sum->eval_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.83
+    },
+    {
+      "id": "M069187",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsIdempotentSubMemOfPowSubMem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuous_mul_right->continuous_mul_const",
+      "raw_ops": [
+        "rename:continuous_mul_right->continuous_mul_const"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.61
+    },
+    {
+      "id": "M069416",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsLinearRelationDescendBaseField",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "raw_ops": [
+        "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.65
+    },
+    {
+      "id": "M070042",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsWittVectorGhostEqFrobeniusIterate",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "no_goals_to_be_solved",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_closed:L[52]",
+      "raw_ops": [
+        "prune_closed:L[52]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.19
+    },
+    {
+      "id": "M070165",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.FiniteFreeModuleCompactAdicDvr",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuous_finset_sum->continuous_finsetSum",
+      "raw_ops": [
+        "rename:continuous_finset_sum->continuous_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.3
+    },
+    {
+      "id": "M072938",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.NormEvalLeSumNormCoeff",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(1); prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "mvpoly_coeff_dot(1)",
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.06
+    },
+    {
+      "id": "M072948",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.NormHasSumEqOfDominant",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:NormedAddCommGroup.tendsto_nhds_zero->NormedAddGroup.tendsto_nhds_zero",
+      "raw_ops": [
+        "rename:NormedAddCommGroup.tendsto_nhds_zero->NormedAddGroup.tendsto_nhds_zero"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.44
+    },
+    {
+      "id": "M072974",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.NormOneAddEqOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.43
+    },
+    {
+      "id": "M073027",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.NotDvdCoeffAevalOneAddXPowSubOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff",
+      "raw_ops": [
+        "rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.03
+    },
+    {
+      "id": "M073039",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.NotXPowSuccDvdDetOfFirstOrderKernelEqZero",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff",
+      "raw_ops": [
+        "rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff"
+      ],
+      "attempts": 1,
+      "elapsed_s": 23.42
+    },
+    {
+      "id": "M073361",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ProdOneSubBoundedBelowOfSummable",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀; prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.48
+    },
+    {
+      "id": "M074334",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.SummableFinprodOfFiniteSupportEulerSum",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.1
+    },
+    {
+      "id": "M074483",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.TendstoRatioBoxCountsProdOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:tendsto_finset_prod->tendsto_finsetProd",
+      "raw_ops": [
+        "rename:tendsto_finset_prod->tendsto_finsetProd"
+      ],
+      "attempts": 1,
+      "elapsed_s": 15.86
+    },
+    {
+      "id": "M074506",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.TensorProductBasisCoordinates",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "raw_ops": [
+        "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.2
+    },
+    {
+      "id": "M074795",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.TsumSetIntegralProdEqZeroOfInner",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:AEMeasurable.ennreal_tsum->AEMeasurable.tsum",
+      "raw_ops": [
+        "rename:AEMeasurable.ennreal_tsum->AEMeasurable.tsum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.28
+    },
+    {
+      "id": "M076736",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.DifferentiableAtDet",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:HasDerivAt.fun_finset_prod->HasDerivAt.fun_finsetProd",
+      "raw_ops": [
+        "rename:HasDerivAt.fun_finset_prod->HasDerivAt.fun_finsetProd"
+      ],
+      "attempts": 1,
+      "elapsed_s": 14.75
+    },
+    {
+      "id": "M076841",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.DvrMapOfCodimOnePrime",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Localization.AtPrime.comap_maximalIdeal->Localization.AtPrime.under_maximalIdeal",
+      "raw_ops": [
+        "rename:Localization.AtPrime.comap_maximalIdeal->Localization.AtPrime.under_maximalIdeal"
+      ],
+      "attempts": 1,
+      "elapsed_s": 15.35
+    },
+    {
+      "id": "M079543",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.HeightComapFlatHeightOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Ideal.bot_prime->Ideal.isPrime_bot",
+      "raw_ops": [
+        "rename:Ideal.bot_prime->Ideal.isPrime_bot"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.19
+    },
+    {
+      "id": "M079546",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.HeightOneComapMinimal",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Ideal.bot_prime->Ideal.isPrime_bot",
+      "raw_ops": [
+        "rename:Ideal.bot_prime->Ideal.isPrime_bot"
+      ],
+      "attempts": 1,
+      "elapsed_s": 15.01
+    },
+    {
+      "id": "M081032",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.MvPolynomialClearDenominatorsEval",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:mem_vars->mem_vars_iff_mem_support",
+      "raw_ops": [
+        "rename:mem_vars->mem_vars_iff_mem_support"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.63
+    },
+    {
+      "id": "M081155",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.NormPowSubPowLe",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:eval_finset_sum->eval_finsetSum",
+      "raw_ops": [
+        "rename:eval_finset_sum->eval_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.51
+    },
+    {
+      "id": "M081483",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.PolynomialApproxUniqueness",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply; rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum; rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff",
+      "raw_ops": [
+        "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+        "rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum",
+        "rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff"
+      ],
+      "attempts": 1,
+      "elapsed_s": 21.55
+    },
+    {
+      "id": "M081519",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.PosDefUniformBoundsNearPoint",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:tendsto_finset_sum->tendsto_finsetSum",
+      "raw_ops": [
+        "rename:tendsto_finset_sum->tendsto_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.64
+    },
+    {
+      "id": "M082067",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.SchurOrthogonalitySubgroupMeasureOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:integral_finset_sum->integral_finsetSum",
+      "raw_ops": [
+        "rename:integral_finset_sum->integral_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.59
+    },
+    {
+      "id": "M083449",
+      "module": "Development.AbelianVarietyTheory.Proofs.JetHarmonics.CoeffProdXSubCNormLe",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): poly_coeff_dot(2)",
+      "raw_ops": [
+        "poly_coeff_dot(2)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.45
+    },
+    {
+      "id": "M083736",
+      "module": "Development.AbelianVarietyTheory.Proofs.JetHarmonics.ExistsNormSubEqOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:IsUltrametricDist.exists_norm_finset_sum_le_of_nonempty->IsUltrametricDist.exists_norm_finsetSum_le_of_nonempty; prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "rename:IsUltrametricDist.exists_norm_finset_sum_le_of_nonempty->IsUltrametricDist.exists_norm_finsetSum_le_of_nonempty",
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 2,
+      "elapsed_s": 24.41
+    },
+    {
+      "id": "M084222",
+      "module": "Development.AbelianVarietyTheory.Proofs.JetHarmonics.NormSumEigenprojectorLeOfResolventBound",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuousOn_finset_sum->continuousOn_finsetSum",
+      "raw_ops": [
+        "rename:continuousOn_finset_sum->continuousOn_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 22.33
+    },
+    {
+      "id": "M084307",
+      "module": "Development.AbelianVarietyTheory.Proofs.JetHarmonics.ProdLeOfInterlacingPairing",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 25.39
+    },
+    {
+      "id": "M085774",
+      "module": "Development.AbelianVarietyTheory.Proofs.ModuliProofs.MvPowerSeriesVariablesSyzygySocle",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "raw_ops": [
+        "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply"
+      ],
+      "attempts": 1,
+      "elapsed_s": 24.69
+    },
+    {
+      "id": "M088887",
+      "module": "Development.AbelianVarietyTheory.Proofs.SatakeParameters.NormLeOfRecurrenceGrowth",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum",
+      "raw_ops": [
+        "rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.34
+    },
+    {
+      "id": "M090404",
+      "module": "Development.AbelianVarietyTheory.Proofs.SiegelThetaTransformation.SummableProdPi",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "typeclass_synthesis",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.05
+    },
+    {
+      "id": "M090551",
+      "module": "Development.AbelianVarietyTheory.Proofs.ThetaLawProofs.CardHomVanishingOfDiagBasis",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum",
+      "raw_ops": [
+        "rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 23.24
+    },
+    {
+      "id": "M090564",
+      "module": "Development.AbelianVarietyTheory.Proofs.ThetaLawProofs.DifferentiableOnCoordOfLinearIndependent",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:HasFDerivAt.finset_prod->HasFDerivAt.finsetProd",
+      "raw_ops": [
+        "rename:HasFDerivAt.finset_prod->HasFDerivAt.finsetProd"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.58
+    },
+    {
+      "id": "M091463",
+      "module": "Development.AbelianVarietyTheory.Proofs.ToricGeometry.SeriesApplyEqZeroOfFace",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuous_finset_sum->continuous_finsetSum",
+      "raw_ops": [
+        "rename:continuous_finset_sum->continuous_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 54.84
+    },
+    {
+      "id": "M091646",
+      "module": "Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.MeasureUnivLeTwoMulSublevelOfDrift",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:lintegral_finset_sum->lintegral_finsetSum",
+      "raw_ops": [
+        "rename:lintegral_finset_sum->lintegral_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 21.44
+    },
+    {
+      "id": "M091697",
+      "module": "Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.TraceMemPrimeOfPowMulVecMemSmul",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:LinearMap.exists_monic_and_coeff_mem_pow_and_aeval_eq_zero_of_range_le_smul->LinearMap.exists_monic_and_natDegree_eq_and_coeff_mem_pow_and_aeval_eq_zero",
+      "raw_ops": [
+        "rename:LinearMap.exists_monic_and_coeff_mem_pow_and_aeval_eq_zero_of_range_le_smul->LinearMap.exists_monic_and_natDegree_eq_and_coeff_mem_pow_and_aeval_eq_zero"
+      ],
+      "attempts": 1,
+      "elapsed_s": 27.52
+    },
+    {
+      "id": "M094302",
+      "module": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.FourierUniquenessOfOpenSubgroup",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuous_add_left->continuous_const_add; rename:integral_finset_sum->integral_finsetSum",
+      "raw_ops": [
+        "rename:continuous_add_left->continuous_const_add",
+        "rename:integral_finset_sum->integral_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.19
+    },
+    {
+      "id": "M094631",
+      "module": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.HasSumCosetsEulerProduct",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.89
+    },
+    {
+      "id": "M095588",
+      "module": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.LatticeSumProdNormLeOfProdNormLowerBound",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "type_mismatch",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀; prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 27.93
+    },
+    {
+      "id": "M095754",
+      "module": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.LintegralHaarEqCompactSubgroupTransversal",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_C_TACTIC_CLOSER",
+      "gt_category": "unsolved_goals",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): aemeasurable:exact continuous_inv.aemeasurable@L83",
+      "raw_ops": [
+        "aemeasurable:exact continuous_inv.aemeasurable@L83"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.13
+    },
+    {
+      "id": "M096209",
+      "module": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.NewtonRecursionPolyUnique",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:eval_finset_sum->eval_finsetSum; rename:finset_sum_coeff->finsetSum_coeff",
+      "raw_ops": [
+        "rename:eval_finset_sum->eval_finsetSum",
+        "rename:finset_sum_coeff->finsetSum_coeff"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.72
+    },
+    {
+      "id": "M101260",
+      "module": "Development.AutomorphicArithmetic.AdelicQuotients.ExistsNatCombinationIsUnitOfIsUnitCombination",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(4)",
+      "raw_ops": [
+        "mvpoly_coeff_dot(4)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 21.55
+    },
+    {
+      "id": "M101428",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.AlgebraTools.ContinuousContractNth",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:continuous_finset_sum->continuous_finsetSum",
+      "raw_ops": [
+        "rename:continuous_finset_sum->continuous_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 30.05
+    },
+    {
+      "id": "M101501",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.AlgebraTools.HidaCompleteRings.FinMax",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "app_type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal",
+      "raw_ops": [
+        "rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.59
+    },
+    {
+      "id": "M102182",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.BuildingsResidueChars.ExistsEquivariantProjectionsOfSumIrreducible",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:DFinsupp.finset_sum_apply->DFinsupp.finsetSum_apply",
+      "raw_ops": [
+        "rename:DFinsupp.finset_sum_apply->DFinsupp.finsetSum_apply"
+      ],
+      "attempts": 1,
+      "elapsed_s": 20.23
+    },
+    {
+      "id": "M102188",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.BuildingsResidueChars.ExistsFixedRotationBasisOfCharpoly",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:linearIndependent_fin_cons->linearIndependent_finCons",
+      "raw_ops": [
+        "rename:linearIndependent_fin_cons->linearIndependent_finCons"
+      ],
+      "attempts": 1,
+      "elapsed_s": 24.88
+    },
+    {
+      "id": "M102734",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.CommutativeAlgebraHeight.GHommem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(11)",
+      "raw_ops": [
+        "mvpoly_coeff_dot(11)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 18.35
+    },
+    {
+      "id": "M103037",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.CurveDVRSpecialization.SelfTwistEigenvalues.UnipTorsion",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:eval₂_finset_sum->eval₂_finsetSum; rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal",
+      "raw_ops": [
+        "rename:eval₂_finset_sum->eval₂_finsetSum",
+        "rename:isMaximal_comap_of_isIntegral_of_isMaximal->isMaximal_under_of_isIntegral_of_isMaximal"
+      ],
+      "attempts": 1,
+      "elapsed_s": 17.39
+    },
+    {
+      "id": "M104090",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.HermiteNormalForms.Hadam",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "function_expected",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_prod->Finset.prod_le_prod₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.02
+    },
+    {
+      "id": "M106289",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.GlobalUnitaryForms.IntegralStabilizers.FinSAbs",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum",
+      "raw_ops": [
+        "rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum"
+      ],
+      "attempts": 1,
+      "elapsed_s": 25.41
+    },
+    {
+      "id": "M108992",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.WeakShimuraTheory.FibreTraces.FibTrdeg",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): poly_coeff_dot(1)",
+      "raw_ops": [
+        "poly_coeff_dot(1)"
+      ],
+      "attempts": 1,
+      "elapsed_s": 19.39
+    },
+    {
+      "id": "M109930",
+      "module": "Development.AutomorphicArithmetic.CyclotomicBounds.DeRhamLattices.FiltrationEqSpanOfEisensteinPowBasisChange",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): rename:AddMonoidHom.finset_sum_apply->AddMonoidHom.finsetSum_apply",
+      "raw_ops": [
+        "rename:AddMonoidHom.finset_sum_apply->AddMonoidHom.finsetSum_apply"
+      ],
+      "attempts": 1,
+      "elapsed_s": 16.11
+    },
+    {
+      "id": "M110469",
+      "module": "Development.AutomorphicArithmetic.EtaleIdempotents.GaloisEquivariantTensorDescentOfPrimePowerUnits",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_A_TRIVIAL_PRUNE",
+      "gt_category": "invalid_alternative_name",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "Proof-only mechanical port (v0.4): prune_dead_zero_alt:L[85, 70, 18]",
+      "raw_ops": [
+        "prune_dead_zero_alt:L[85, 70, 18]"
+      ],
+      "attempts": 1,
+      "elapsed_s": 26.06
+    },
+    {
+      "id": "M110751",
+      "module": "Development.AutomorphicArithmetic.Foundations.Convolution.ConvolutionKernels.PresOfOrder",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_C_TACTIC_CLOSER",
+      "gt_category": "unsolved_goals",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Proof-only mechanical port (v0.4): aemeasurable:exact hme.aemeasurable@L19",
+      "raw_ops": [
+        "aemeasurable:exact hme.aemeasurable@L19"
+      ],
+      "attempts": 1,
+      "elapsed_s": 15.43
+    },
+    {
+      "id": "M114978",
+      "module": "Development.AutomorphicArithmetic.IntegralCasts.CapelliIdentities.BiHomSum",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "Statement/definition-equivalent mechanical port (v0.4): mvpoly_coeff_dot(1); mvpoly_coeff_dot(1)",
+      "raw_ops": [
+        "mvpoly_coeff_dot(1)",
+        "mvpoly_coeff_dot(1)"
+      ],
+      "attempts": 2,
+      "elapsed_s": 19.6
+    },
+    {
+      "id": "M114996",
+      "module": "Development.AutomorphicArithmetic.IntegralCasts.CapelliIdentities.CapelliComplements.FirstLemmaE",
+      "status": "FIXED_VERIFIED_436",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "gt_category": "type_mismatch",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "Proof-only mechanical port (v0.4): prod_mono:Finset.prod_le_one->Finset.prod_le_one₀",
+      "raw_ops": [
+        "prod_mono:Finset.prod_le_one->Finset.prod_le_one₀"
+      ],
+      "attempts": 1,
+      "elapsed_s": 13.05
+    }
+  ]
+}
