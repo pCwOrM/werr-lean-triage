@@ -1,8 +1,9 @@
 # WERR-Lean-Triage: 0-VRAM System-1 Porting & Migration Helper for Lean 4
 
+[![Release v0.4.4](https://img.shields.io/badge/Release-v0.4.4_(17%2F17_Tests)-informational.svg)](https://github.com/pCwOrM/werr-lean-triage/releases/tag/v0.4.4)
 [![Lean 4.36.0 Verified](https://img.shields.io/badge/Lean_4.36.0_Live_Verified-151%2F451_(89.80%25_Zero--LLM)-brightgreen.svg)](reports/live_436_v04_report.md)
 [![Mathlib Renames](https://img.shields.io/badge/Mathlib_4.33%E2%86%924.36-5%2C710_Rules_%2B_14_AST_Transforms-blue.svg)](src/mathlib436_transforms.py)
-[![VRAM](https://img.shields.io/badge/VRAM-0_Bytes_(CPU--Only)-purple.svg)](#2-live-lean-4360-verification-results-v02--v03--v04)
+[![VRAM](https://img.shields.io/badge/VRAM-0_Bytes_(CPU--Only)-purple.svg)](#2-live-lean-v4360-verification-results-v02--v03--v04--v044)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-orange.svg)](LICENSE)
 
 An open-source, zero-VRAM **System-1 diagnostic triage and multi-pass mechanical migration helper** built to accelerate the **Lean `v4.33.1` → `v4.36.0` / Mathlib `v4.36.0`** porting campaign for Levent Alpöge's formalized Riemann Hypothesis archive ([`rohanarun/alpoge-rh-replay`](https://github.com/rohanarun/alpoge-rh-replay)).
@@ -31,9 +32,9 @@ Parsed from [`rohanarun/alpoge-rh-replay/port/triage/results.json`](data/triage/
 
 ---
 
-## 2. Live Lean `v4.36.0` Verification Results (`v0.2` → `v0.3` → `v0.4`)
+## 2. Live Lean `v4.36.0` Verification Results (`v0.2` → `v0.3` → `v0.4` → `v0.4.4`)
 
-We extracted **5,703 official `@[deprecated]` rename/alias entries** directly from the Mathlib `v4.33.1` and `v4.36.0` source trees (`src/extract_mathlib_renames.py`), added **7 curated verified renames**, and built **9 deterministic bracket/AST-aware Mathlib `v4.36.0` mechanical transforms** (`src/mathlib436_transforms.py`). Every single fix below was compiled live by `leanprover/lean4:v4.36.0` with `0 sorry`:
+We extracted **5,703 official `@[deprecated]` rename/alias entries** directly from the Mathlib `v4.33.1` and `v4.36.0` source trees (`src/extract_mathlib_renames.py`), added **7 curated verified renames**, and built **14 deterministic bracket/AST-aware Mathlib `v4.36.0` mechanical transforms** (`src/mathlib436_transforms.py`, verified by **17/17 unit tests**): 9 in the `v0.4.0` depth-0 benchmark baseline plus 5 additional field-discovered transforms folded in during `v0.4.1`–`v0.4.4` porting packets. Every single fix below was compiled live by `leanprover/lean4:v4.36.0` with `0 sorry`:
 
 | Version | Strategy | Scope Evaluated | Live Verified `0 sorry` Fixes | Fix Rate (Scope) | System-1 Subset Rate | Combined Zero-LLM Depth-0 Coverage | Wall Time | VRAM / API Cost |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -56,8 +57,13 @@ We extracted **5,703 official `@[deprecated]` rename/alias entries** directly fr
 | `aemeasurable` | Targeted `Measure.map_smul` side-goal closers (`continuous_inv.aemeasurable`, `<h>.measurable.aemeasurable`, `fun_prop`, `measurability`) | **5 modules** |
 | `prune_closed` | Redundant closed-goal tactic line pruning (`No goals to be solved`) | **3 modules** |
 | `noncomputable` | Expanded `dependsOnNoncomputable` / `consider marking it as 'noncomputable'` → `noncomputable def` | **2 modules** |
-| `ldl_lower_inv_triangular` | `fun i j hij => LDL.lowerInv_triangular hS ...` → `LDL.isLowerTriangular_lowerInv hS` | **1 module** |
-| `powerseries_ddx_implicit_ring` | PowerSeries `d⁄dX R f` → `d⁄dX f` (implicit ring argument) | **1 module** |
+| `ldl_lower_inv_triangular` | `fun i j hij => LDL.lowerInv_triangular hS ...` → `LDL.isLowerTriangular_lowerInv hS` | **1 module** (`v0.4.0`) |
+| `powerseries_ddx_implicit_ring` | PowerSeries `d⁄dX R f` → `d⁄dX f` (implicit ring argument) | **1 module** (`v0.4.0`) |
+| `mvpoly_coeff_zero` | `rw [coeff_zero]` → `simp only [AddMonoidAlgebra.coeff_zero, Finsupp.zero_apply]` | Added in **`v0.4.1`** (`P0285` `M165552`) |
+| `finsupp_mapdomain_apply_of_injective` | `Finsupp.mapDomain_apply hinj` → `Finsupp.mapDomain_apply_of_injective hinj` + safe `prune_closed` pass guard | Added in **`v0.4.2`** (`P0316` `M106522`, `M106527`) |
+| `mvpowerseries_pderiv_implicit_ring` / multi-line `mvpoly_coeff_dot` | `MvPowerSeries.pderiv R i` → `MvPowerSeries.pderiv i`, `PowerSeries.derivative R` → `PowerSeries.derivative`, multi-line `MvPolynomial.coeff` | Added in **`v0.4.3`** (`P0325` `M144323`–`M144325`, `M144340`) |
+| `is_integral_algebra_map_iff` | `(isIntegral_algebraMap_iff <hinj>).1` → `isIntegral_algebraMap_iff.1` (implicit `FaithfulSMul`) | Added in **`v0.4.4`** (`P0254` `M071140`) |
+| `ff_x_pow_{nat_degree,ne_zero}` + identifier renames | `FiniteField.X_pow_card_sub_X_{natDegree_eq,ne_zero} R h` → `Polynomial.{natDegree_X_pow_sub_X,X_pow_sub_X_ne_zero} h`; error-gated `continuous_mul_right` → `continuous_mul_const` & `integral_finset_sum` → `integral_finsetSum` | Added in **`v0.4.4`** (`P0123` `M071367`, `M072010`, `M072764`) |
 
 ### Highlights of Verified Real Fixes (`0 sorry`, `leanprover/lean4:v4.36.0`)
 - `M002361`: `mvpoly_coeff_dot(7)` + `aemeasurable: exact hc.measurable.aemeasurable@L64` (2-pass combined fix)
@@ -122,14 +128,14 @@ python3 src/live_436_benchmark.py \
 
 ## 5. Community Contributions (`rohanarun/alpoge-rh-replay`)
 
-- **Lean `v4.36.0` Porting PRs (190 modules submitted across 7 packets — 3 complete whole-packet closures + 4 large partial waves):**
-  - [`PR #33850`](https://github.com/rohanarun/alpoge-rh-replay/pull/33850) — `Port P0123 to Lean 4.36` (completes 100% of depth-1 packet `P0123`, claim `#33568`: 20/20 modules — 13 unchanged + 7 patched, including `Polynomial.coeff` auto-fix and `FiniteField.X_pow_card_sub_X_*` / `continuous_mul_const` / `integral_finsetSum` patterns distilled into `v0.4.4`; clean `--no-cache` build in 34.4s, `0` audit hits, `validate_ports.py` exit 0)
-  - [`PR #33639`](https://github.com/rohanarun/alpoge-rh-replay/pull/33639) — `Port P0254: 49 ready modules to Lean 4.36` (depth-3 packet `P0254`, claim `#33550`: 46 unchanged + 3 patched — fed `isIntegral_algebraMap_iff` implicit-injectivity transform into `v0.4.4`; clean `--no-cache` build in 65.1s, `0` audit hits, `validate_ports.py` exit 0)
-  - [`PR #33361`](https://github.com/rohanarun/alpoge-rh-replay/pull/33361) — `Port P0325: 30 ready modules to Lean 4.36` (depth-4 packet `P0325`, claim `#33311`: 24 unchanged + 6 patched — fed multi-line `MvPolynomial.coeff` + `MvPowerSeries.pderiv` / `PowerSeries.derivative` implicit ring transforms into `v0.4.3`; clean `--no-cache` build in 63.7s, `0` audit hits, `validate_ports.py` exit 0)
-  - [`PR #33265`](https://github.com/rohanarun/alpoge-rh-replay/pull/33265) — `Port P0316: 39 ready modules to Lean 4.36` (depth-4 packet `P0316`, claim `#33189`: 35 unchanged + 4 patched — fed `Finsupp.mapDomain_apply_of_injective` & safe `prune_closed` pass separation into `v0.4.2`; clean `--no-cache` build in 59.9s, `0` audit hits, `validate_ports.py` exit 0)
-  - [`PR #32963`](https://github.com/rohanarun/alpoge-rh-replay/pull/32963) — `Port P0285: 48 ready modules to Lean 4.36` (depth-3 packet `P0285`, claim `#32755`: 45 unchanged + 3 patched — `M166247` & `M166255` auto-fixed by `werr-lean-triage v0.4.0`, `M165552` led to `mvpoly_coeff_zero` in `v0.4.1`; clean `--no-cache` build in 68.6s, `0` audit hits, `validate_ports.py` exit 0)
-  - [`PR #32234`](https://github.com/rohanarun/alpoge-rh-replay/pull/32234) — `Port P0189 to Lean 4.36` (completes 100% of depth-2 packet `P0189`; clean `--no-cache` build, `0` audit hits, `validate_ports.py` exit 0)
-  - [`PR #32236`](https://github.com/rohanarun/alpoge-rh-replay/pull/32236) — `Port P0196 to Lean 4.36` (completes 100% of depth-2 packet `P0196` including `MvPolynomial.coeff` → `.coeff` migration; clean `--no-cache` build, `0` audit hits, `validate_ports.py` exit 0)
+- **Lean `v4.36.0` Porting PRs (190 modules submitted across 7 packets — 91 merged across 4 PRs + 99 in review across 3 PRs; 3 complete whole-packet closures + 4 large partial waves):**
+  - [`PR #33850`](https://github.com/rohanarun/alpoge-rh-replay/pull/33850) (`OPEN`) — `Port P0123 to Lean 4.36` (completes 100% of depth-1 packet `P0123`, `Closes #33568`: 20/20 modules — 13 unchanged + 7 patched, including `Polynomial.coeff` auto-fix and `FiniteField.X_pow_card_sub_X_*` / `continuous_mul_const` / `integral_finsetSum` patterns distilled into `v0.4.4`; clean `--no-cache` build in 34.4s, `0` audit hits, `validate_ports.py` exit 0)
+  - [`PR #33639`](https://github.com/rohanarun/alpoge-rh-replay/pull/33639) (`OPEN`) — `Port P0254: 49 ready modules to Lean 4.36` (depth-3 packet `P0254`, `Closes #33550`: 46 unchanged + 3 patched — fed `isIntegral_algebraMap_iff` implicit-injectivity transform into `v0.4.4`; clean `--no-cache` build in 65.1s, `0` audit hits, `validate_ports.py` exit 0)
+  - [`PR #33361`](https://github.com/rohanarun/alpoge-rh-replay/pull/33361) (`OPEN`) — `Port P0325: 30 ready modules to Lean 4.36` (depth-4 packet `P0325`, `Closes #33311`: 24 unchanged + 6 patched — fed multi-line `MvPolynomial.coeff` + `MvPowerSeries.pderiv` / `PowerSeries.derivative` implicit ring transforms into `v0.4.3`; clean `--no-cache` build in 63.7s, `0` audit hits, `validate_ports.py` exit 0)
+  - [`PR #33265`](https://github.com/rohanarun/alpoge-rh-replay/pull/33265) (`MERGED`) — `Port P0316: 39 ready modules to Lean 4.36` (depth-4 packet `P0316`, claim `#33189`: 35 unchanged + 4 patched — fed `Finsupp.mapDomain_apply_of_injective` & safe `prune_closed` pass separation into `v0.4.2`; clean `--no-cache` build in 59.9s, `0` audit hits, `validate_ports.py` exit 0)
+  - [`PR #32963`](https://github.com/rohanarun/alpoge-rh-replay/pull/32963) (`MERGED`) — `Port P0285: 48 ready modules to Lean 4.36` (depth-3 packet `P0285`, claim `#32755`: 45 unchanged + 3 patched — `M166247` & `M166255` auto-fixed by `werr-lean-triage v0.4.0`, `M165552` led to `mvpoly_coeff_zero` in `v0.4.1`; clean `--no-cache` build in 68.6s, `0` audit hits, `validate_ports.py` exit 0)
+  - [`PR #32234`](https://github.com/rohanarun/alpoge-rh-replay/pull/32234) (`MERGED`) — `Port P0189 to Lean 4.36` (completes 100% of depth-2 packet `P0189`; clean `--no-cache` build, `0` audit hits, `validate_ports.py` exit 0)
+  - [`PR #32236`](https://github.com/rohanarun/alpoge-rh-replay/pull/32236) (`MERGED`) — `Port P0196 to Lean 4.36` (completes 100% of depth-2 packet `P0196` including `MvPolynomial.coeff` → `.coeff` migration; clean `--no-cache` build, `0` audit hits, `validate_ports.py` exit 0)
 - **Lean `v4.33.1` Independent Replay:**
   - [`P2382` (`#26536`)](https://github.com/rohanarun/alpoge-rh-replay/issues/26536) — 64 target modules + 27,817 transitive prerequisites compiled and accepted, plus warm-cache replay submissions (`M100691`, `M036503`, `M003484`, `M003638`, `M003861`, `M003041`, `M003738`, `M003907`, `M018272`, `M080966`, etc.).
 
