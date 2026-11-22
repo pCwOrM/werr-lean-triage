@@ -38,16 +38,17 @@ _CLOSERS = set(_OPEN_TO_CLOSE.values())
 _IDENT_CHAR_RE = re.compile(r"[\w.'₀₁₂₃₄₅₆₇₈₉ₐₑₒₓᵢᵣᵤᵥ]")
 
 
-def _skip_ws(text: str, pos: int) -> int:
+def _skip_ws(text: str, pos: int, allow_newline: bool = False) -> int:
     n = len(text)
-    while pos < n and text[pos] in " \t":
+    ws = " \t\n\r" if allow_newline else " \t"
+    while pos < n and text[pos] in ws:
         pos += 1
     return pos
 
 
-def _read_lean_atom(text: str, pos: int) -> tuple[str, int] | None:
+def _read_lean_atom(text: str, pos: int, allow_newline: bool = False) -> tuple[str, int] | None:
     """Read one Lean application argument starting at `pos` (balanced parens/brackets or atom)."""
-    pos = _skip_ws(text, pos)
+    pos = _skip_ws(text, pos, allow_newline=allow_newline)
     n = len(text)
     if pos >= n:
         return None
@@ -140,11 +141,11 @@ def transform_mvpolynomial_coeff(text: str, err: str) -> tuple[str, list[str]]:
             # Avoid rewriting inside line comments
             if "--" in prefix:
                 continue
-            a1 = _read_lean_atom(out, m.end())
+            a1 = _read_lean_atom(out, m.end(), allow_newline=True)
             if not a1:
                 continue
             arg1, p1 = a1
-            a2 = _read_lean_atom(out, p1)
+            a2 = _read_lean_atom(out, p1, allow_newline=True)
             if not a2:
                 continue
             arg2, p2 = a2
@@ -435,6 +436,39 @@ def transform_finsupp_mapdomain_apply(text: str, err: str) -> tuple[str, list[st
     return text, []
 
 
+def transform_mvpowerseries_pderiv_ring(text: str, err: str) -> tuple[str, list[str]]:
+    """
+    Drop the now-implicit coefficient ring argument from `MvPowerSeries.pderiv R i`
+    and `PowerSeries.derivative R` when Lean 4.36 reports an application type mismatch
+    on `pderiv` or `derivative`.
+    """
+    if "Application type mismatch" not in err:
+        return text, []
+    wants_pderiv = "MvPowerSeries.pderiv" in text and "pderiv" in err
+    wants_deriv = "PowerSeries.derivative" in text and "derivative" in err
+    if not (wants_pderiv or wants_deriv):
+        return text, []
+    out = text
+    notes: list[str] = []
+    if wants_pderiv:
+        out, n1 = re.subn(
+            r"\bMvPowerSeries\.pderiv\s+(?:\([^)]+\)|[A-Za-z_][\w']*)\s+",
+            "MvPowerSeries.pderiv ",
+            out,
+        )
+        if n1 > 0:
+            notes.append(f"mvpowerseries_pderiv_implicit_ring({n1})")
+    if wants_deriv:
+        out, n2 = re.subn(
+            r"\bPowerSeries\.derivative\s+(?:\([^)]+\)|[A-Za-z_][\w']*)\b",
+            "PowerSeries.derivative",
+            out,
+        )
+        if n2 > 0:
+            notes.append(f"powerseries_derivative_implicit_ring({n2})")
+    return out, notes
+
+
 def apply_deterministic_v04_transforms(text: str, err: str) -> tuple[str, list[str]]:
     """Run all deterministic v0.4 transforms in safe order."""
     cur = text
@@ -447,6 +481,7 @@ def apply_deterministic_v04_transforms(text: str, err: str) -> tuple[str, list[s
         transform_is_maximal_under,
         transform_ldl_lower_inv_triangular,
         transform_power_series_ddx,
+        transform_mvpowerseries_pderiv_ring,
         transform_finsupp_mapdomain_apply,
         transform_invalid_alt_zero,
         transform_noncomputable_def,

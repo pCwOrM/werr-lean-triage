@@ -12,6 +12,7 @@ from mathlib436_transforms import (
     transform_ldl_lower_inv_triangular,
     transform_mvpolynomial_coeff,
     transform_mvpolynomial_coeff_zero,
+    transform_mvpowerseries_pderiv_ring,
     transform_noncomputable_def,
     transform_polynomial_coeff,
     transform_power_series_ddx,
@@ -125,6 +126,22 @@ def test_finsupp_mapdomain_apply():
     out, notes = transform_finsupp_mapdomain_apply(src, err)
     assert "Finsupp.mapDomain_apply_of_injective hinj" in out, out
     assert notes == ["finsupp_mapdomain_apply_of_injective(1)"]
+
+
+def test_mvpolynomial_coeff_multiline():
+    src = "        ‖MvPolynomial.coeff α\n            ((∑ e, MvPolynomial.C (a e) * MvPolynomial.X e) ^ 2)‖\n"
+    err = "foo.lean:35:9: error(lean.unknownIdentifier): Unknown constant `MvPolynomial.coeff`"
+    out, notes = transform_mvpolynomial_coeff(src, err)
+    assert "((∑ e, MvPolynomial.C (a e) * MvPolynomial.X e) ^ 2).coeff α" in out, out
+    assert notes == ["mvpoly_coeff_dot(1)"]
+
+
+def test_mvpowerseries_pderiv_ring():
+    src = "def f := MvPowerSeries.pderiv (unitBall K) 1 F + PowerSeries.derivative K φ\n"
+    err = "foo.lean:15:10: error: Application type mismatch in MvPowerSeries.pderiv and PowerSeries.derivative"
+    out, notes = transform_mvpowerseries_pderiv_ring(src, err)
+    assert "MvPowerSeries.pderiv 1 F + PowerSeries.derivative φ" in out, out
+    assert len(notes) == 2
 
 
 if __name__ == "__main__":
