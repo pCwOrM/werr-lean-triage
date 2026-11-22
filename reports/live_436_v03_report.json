@@ -1,0 +1,784 @@
+{
+  "version": "v0.3-multipass",
+  "timestamp_utc": "2026-11-22T11:26:56Z",
+  "target_lean": "leanprover/lean4:v4.36.0",
+  "target_mathlib": "fc4f59e577feb1a4956671bc04ac18aaaf8cd842",
+  "official_mathlib_renames_loaded": 5703,
+  "workers": 8,
+  "evaluated_system1_failures": 269,
+  "verified_fixed_count": 77,
+  "verified_fix_rate_pct": 28.62,
+  "wall_seconds": 953.66,
+  "fixed_modules": [
+    {
+      "id": "M002162",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.DivisorBase.MultiplicationKernelIdentity",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Polynomial.eval₂_finset_prod->Polynomial.eval₂_finsetProd",
+      "attempts": 1,
+      "elapsed_s": 28.42
+    },
+    {
+      "id": "M006411",
+      "module": "Development.AbelianVarietyTheory.Proofs.CovolumeBounds.EntireApplyEqOfPeriodicOfSpanReal",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 20.72
+    },
+    {
+      "id": "M008087",
+      "module": "Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ContDiffCompactAverageOfClosedPartials",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:integral_finset_sum->integral_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 23.58
+    },
+    {
+      "id": "M012739",
+      "module": "Development.AbelianVarietyTheory.Proofs.DegenerationProofs.CompCMulMap",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:AddMonoidHom.finset_sum_apply->AddMonoidHom.finsetSum_apply",
+      "attempts": 1,
+      "elapsed_s": 19.41
+    },
+    {
+      "id": "M020197",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.CurveLieLatticeDegree",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Ideal.bot_prime->Ideal.isPrime_bot",
+      "attempts": 1,
+      "elapsed_s": 18.94
+    },
+    {
+      "id": "M019614",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ContinuousAtCharSeriesCoefZero",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:tendsto_finset_sum->tendsto_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 20.46
+    },
+    {
+      "id": "M020874",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.DenseAnalyticGrowthSchwartz",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:SchwartzMap.fourierTransformCLE->FourierTransform.fourierCLE",
+      "attempts": 1,
+      "elapsed_s": 18.3
+    },
+    {
+      "id": "M021551",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.DixmierSchurOfRankLeAleph0",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:eval_finset_sum->eval_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 17.01
+    },
+    {
+      "id": "M021587",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.DoubleCosetSumFundamentalDomain",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:continuous_mul_right->continuous_mul_const; rename:integral_finset_sum->integral_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 17.21
+    },
+    {
+      "id": "M014160",
+      "module": "Development.AbelianVarietyTheory.Proofs.DegenerationProofs.UnitOnProductEqOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 55.06
+    },
+    {
+      "id": "M026341",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsInjectiveNormLeOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Polynomial.eval₂_finset_sum->Polynomial.eval₂_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 14.44
+    },
+    {
+      "id": "M023687",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsBasisModN",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:IsLocalization.map_comap->IsLocalization.map_under",
+      "attempts": 1,
+      "elapsed_s": 20.91
+    },
+    {
+      "id": "M028335",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsPowEqOneIsUnitOneSubPow",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 14.03
+    },
+    {
+      "id": "M026517",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsInvariantPosDefHermitian",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:continuous_finset_sum->continuous_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 21.7
+    },
+    {
+      "id": "M031586",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.FinrankEqZeroOfDualKilledByTensor",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "attempts": 1,
+      "elapsed_s": 22.82
+    },
+    {
+      "id": "M036410",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ImportsAlt",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:IsLocalization.map_comap->IsLocalization.map_under",
+      "attempts": 1,
+      "elapsed_s": 15.45
+    },
+    {
+      "id": "M034778",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.HasSumConjClassesRegroupWithInvariantSelection",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:summable_of_finite_support->summable_of_hasFiniteSupport",
+      "attempts": 1,
+      "elapsed_s": 17.2
+    },
+    {
+      "id": "M037084",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralHasSumEqIntegralIndicatorHasSum",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:integral_finset_sum->integral_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 14.73
+    },
+    {
+      "id": "M037067",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralFundamentalDomainEqSum",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:integrable_finset_sum->integrable_finsetSum; rename:integral_finset_sum->integral_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 16.49
+    },
+    {
+      "id": "M037018",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralDoubleSeriesInterchange",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:integral_finset_sum->integral_finsetSum; rename:integrable_finset_sum->integrable_finsetSum",
+      "attempts": 2,
+      "elapsed_s": 22.57
+    },
+    {
+      "id": "M040219",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.LatticeCountIntegrableBound",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:lintegral_finset_sum->lintegral_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 14.75
+    },
+    {
+      "id": "M037633",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsAlgebraicOfFiniteTypeOfComapEqBot",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:IsLocalization.map_comap->IsLocalization.map_under",
+      "attempts": 1,
+      "elapsed_s": 22.92
+    },
+    {
+      "id": "M038222",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsIntegralConeRingOfForallValuationSubring",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Polynomial.eval₂_finset_sum->Polynomial.eval₂_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 21.56
+    },
+    {
+      "id": "M042170",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.LocallyConstantCompactSupportInvariantOpenAddSub",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:continuous_add_left->continuous_const_add",
+      "attempts": 1,
+      "elapsed_s": 14.98
+    },
+    {
+      "id": "M030617",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExpSumCoeffEqZeroOfVanishing",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:integral_finset_sum->integral_finsetSum; rename:tendsto_finset_sum->tendsto_finsetSum; rename:tendsto_finset_prod->tendsto_finsetProd",
+      "attempts": 2,
+      "elapsed_s": 113.04
+    },
+    {
+      "id": "M043370",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.MemSubfieldOfBilinFormBasisMonomials",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:AddSubmonoidClass.coe_finset_sum->AddSubmonoidClass.coe_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 20.05
+    },
+    {
+      "id": "M044251",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.NilpotentTwistCharacterContinuous",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:continuous_finset_sum->continuous_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 15.66
+    },
+    {
+      "id": "M044247",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.NilpotentExpLogSeries",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:eval_finset_sum->eval_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 16.55
+    },
+    {
+      "id": "M044618",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.NormUnitLeOfEsymm",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 13.97
+    },
+    {
+      "id": "M046242",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.PosDefExistsConjTransposeMulMulEqOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "no_goals_to_be_solved",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "prune_closed:L[48]",
+      "attempts": 1,
+      "elapsed_s": 14.64
+    },
+    {
+      "id": "M046252",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.PosSemidefQuadraticAdjointPairBound",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "rename:AddMonoidHom.finset_sum_apply->AddMonoidHom.finsetSum_apply",
+      "attempts": 1,
+      "elapsed_s": 23.01
+    },
+    {
+      "id": "M046318",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.PowDivMemOfEsymmPowDivMem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:eval_finset_sum->eval_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 15.24
+    },
+    {
+      "id": "M050649",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.SpanRangeInfKerEqSpanRationalKer",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "attempts": 1,
+      "elapsed_s": 17.67
+    },
+    {
+      "id": "M049661",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.SemilinearRankComparison",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "attempts": 1,
+      "elapsed_s": 39.43
+    },
+    {
+      "id": "M053808",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.TotalDegreeLeOfIntegralAtInfinity",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:totalDegree_finset_sum->totalDegree_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 20.68
+    },
+    {
+      "id": "M055002",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.UnipotentMatrixCoefficientsMem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:continuous_finset_sum->continuous_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 17.7
+    },
+    {
+      "id": "M055799",
+      "module": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.VanishingOfProjectionSupport",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:lintegral_finset_sum->lintegral_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 28.55
+    },
+    {
+      "id": "M058666",
+      "module": "Development.AbelianVarietyTheory.Proofs.FlagMeasures.IntegralNonnegOfSums",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:integral_finset_sum->integral_finsetSum; rename:integrable_finset_sum->integrable_finsetSum",
+      "attempts": 2,
+      "elapsed_s": 26.92
+    },
+    {
+      "id": "M062550",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.ImportsAlt",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:eval₂_finset_sum->eval₂_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 16.62
+    },
+    {
+      "id": "M062816",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.JetRelOfWeierstrassSystem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "no_goals_to_be_solved",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "prune_closed:L[40]",
+      "attempts": 1,
+      "elapsed_s": 17.17
+    },
+    {
+      "id": "M063176",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.MonicFactorCoeffNatDegreeLe",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:finset_sum_coeff->finsetSum_coeff",
+      "attempts": 1,
+      "elapsed_s": 16.32
+    },
+    {
+      "id": "M063878",
+      "module": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.SummableRpowOfFibreCardLe",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Real.finset_prod_rpow->Real.finsetProd_rpow",
+      "attempts": 1,
+      "elapsed_s": 15.41
+    },
+    {
+      "id": "M067292",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.CenterMonoidAlgebraLeSpanCentralIntegral",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply; rename:MonoidAlgebra.mapRangeRingHom_single->MonoidAlgebra.mapRingHom_single",
+      "attempts": 1,
+      "elapsed_s": 16.52
+    },
+    {
+      "id": "M068383",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.EmbeddingIntegralContinuous",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "rename:eval_finset_sum->eval_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 18.88
+    },
+    {
+      "id": "M069187",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsIdempotentSubMemOfPowSubMem",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:continuous_mul_right->continuous_mul_const",
+      "attempts": 1,
+      "elapsed_s": 17.52
+    },
+    {
+      "id": "M069416",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsLinearRelationDescendBaseField",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "attempts": 1,
+      "elapsed_s": 16.2
+    },
+    {
+      "id": "M070042",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsWittVectorGhostEqFrobeniusIterate",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "no_goals_to_be_solved",
+      "werr_lane": "LANE_A_TRIVIAL_PRUNE",
+      "repair_note": "prune_closed:L[52]",
+      "attempts": 1,
+      "elapsed_s": 16.29
+    },
+    {
+      "id": "M070165",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.FiniteFreeModuleCompactAdicDvr",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:continuous_finset_sum->continuous_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 16.66
+    },
+    {
+      "id": "M072948",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.NormHasSumEqOfDominant",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:NormedAddCommGroup.tendsto_nhds_zero->NormedAddGroup.tendsto_nhds_zero",
+      "attempts": 1,
+      "elapsed_s": 15.54
+    },
+    {
+      "id": "M073027",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.NotDvdCoeffAevalOneAddXPowSubOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff",
+      "attempts": 1,
+      "elapsed_s": 17.07
+    },
+    {
+      "id": "M074483",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.TendstoRatioBoxCountsProdOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:tendsto_finset_prod->tendsto_finsetProd",
+      "attempts": 1,
+      "elapsed_s": 15.33
+    },
+    {
+      "id": "M073039",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.NotXPowSuccDvdDetOfFirstOrderKernelEqZero",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff",
+      "attempts": 1,
+      "elapsed_s": 20.9
+    },
+    {
+      "id": "M074506",
+      "module": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.TensorProductBasisCoordinates",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "attempts": 1,
+      "elapsed_s": 18.13
+    },
+    {
+      "id": "M076736",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.DifferentiableAtDet",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:HasDerivAt.fun_finset_prod->HasDerivAt.fun_finsetProd",
+      "attempts": 1,
+      "elapsed_s": 14.97
+    },
+    {
+      "id": "M076841",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.DvrMapOfCodimOnePrime",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Localization.AtPrime.comap_maximalIdeal->Localization.AtPrime.under_maximalIdeal",
+      "attempts": 1,
+      "elapsed_s": 14.97
+    },
+    {
+      "id": "M079543",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.HeightComapFlatHeightOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Ideal.bot_prime->Ideal.isPrime_bot",
+      "attempts": 1,
+      "elapsed_s": 14.69
+    },
+    {
+      "id": "M079546",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.HeightOneComapMinimal",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Ideal.bot_prime->Ideal.isPrime_bot",
+      "attempts": 1,
+      "elapsed_s": 14.68
+    },
+    {
+      "id": "M081032",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.MvPolynomialClearDenominatorsEval",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:mem_vars->mem_vars_iff_mem_support",
+      "attempts": 1,
+      "elapsed_s": 16.66
+    },
+    {
+      "id": "M081155",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.NormPowSubPowLe",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:eval_finset_sum->eval_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 18.3
+    },
+    {
+      "id": "M081519",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.PosDefUniformBoundsNearPoint",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:tendsto_finset_sum->tendsto_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 16.55
+    },
+    {
+      "id": "M081483",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.PolynomialApproxUniqueness",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply; rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum; rename:Polynomial.finset_sum_coeff->Polynomial.finsetSum_coeff",
+      "attempts": 1,
+      "elapsed_s": 18.67
+    },
+    {
+      "id": "M082067",
+      "module": "Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.SchurOrthogonalitySubgroupMeasureOne",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:integral_finset_sum->integral_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 19.03
+    },
+    {
+      "id": "M084222",
+      "module": "Development.AbelianVarietyTheory.Proofs.JetHarmonics.NormSumEigenprojectorLeOfResolventBound",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:continuousOn_finset_sum->continuousOn_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 19.83
+    },
+    {
+      "id": "M085774",
+      "module": "Development.AbelianVarietyTheory.Proofs.ModuliProofs.MvPowerSeriesVariablesSyzygySocle",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Finsupp.finset_sum_apply->Finsupp.finsetSum_apply",
+      "attempts": 1,
+      "elapsed_s": 20.32
+    },
+    {
+      "id": "M088887",
+      "module": "Development.AbelianVarietyTheory.Proofs.SatakeParameters.NormLeOfRecurrenceGrowth",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:Polynomial.eval_finset_sum->Polynomial.eval_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 15.87
+    },
+    {
+      "id": "M090551",
+      "module": "Development.AbelianVarietyTheory.Proofs.ThetaLawProofs.CardHomVanishingOfDiagBasis",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 20.19
+    },
+    {
+      "id": "M090564",
+      "module": "Development.AbelianVarietyTheory.Proofs.ThetaLawProofs.DifferentiableOnCoordOfLinearIndependent",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:HasFDerivAt.finset_prod->HasFDerivAt.finsetProd",
+      "attempts": 1,
+      "elapsed_s": 16.88
+    },
+    {
+      "id": "M091646",
+      "module": "Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.MeasureUnivLeTwoMulSublevelOfDrift",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:lintegral_finset_sum->lintegral_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 18.88
+    },
+    {
+      "id": "M091697",
+      "module": "Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.TraceMemPrimeOfPowMulVecMemSmul",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:LinearMap.exists_monic_and_coeff_mem_pow_and_aeval_eq_zero_of_range_le_smul->LinearMap.exists_monic_and_natDegree_eq_and_coeff_mem_pow_and_aeval_eq_zero",
+      "attempts": 1,
+      "elapsed_s": 26.05
+    },
+    {
+      "id": "M094302",
+      "module": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.FourierUniquenessOfOpenSubgroup",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:continuous_add_left->continuous_const_add; rename:integral_finset_sum->integral_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 15.76
+    },
+    {
+      "id": "M091463",
+      "module": "Development.AbelianVarietyTheory.Proofs.ToricGeometry.SeriesApplyEqZeroOfFace",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:continuous_finset_sum->continuous_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 49.77
+    },
+    {
+      "id": "M096209",
+      "module": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.NewtonRecursionPolyUnique",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:eval_finset_sum->eval_finsetSum; rename:finset_sum_coeff->finsetSum_coeff",
+      "attempts": 1,
+      "elapsed_s": 16.81
+    },
+    {
+      "id": "M101428",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.AlgebraTools.ContinuousContractNth",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:continuous_finset_sum->continuous_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 24.34
+    },
+    {
+      "id": "M102182",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.BuildingsResidueChars.ExistsEquivariantProjectionsOfSumIrreducible",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:DFinsupp.finset_sum_apply->DFinsupp.finsetSum_apply",
+      "attempts": 1,
+      "elapsed_s": 20.12
+    },
+    {
+      "id": "M102188",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.BuildingsResidueChars.ExistsFixedRotationBasisOfCharpoly",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_identifier",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "repair_note": "rename:linearIndependent_fin_cons->linearIndependent_finCons",
+      "attempts": 1,
+      "elapsed_s": 23.94
+    },
+    {
+      "id": "M106289",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.GlobalUnitaryForms.IntegralStabilizers.FinSAbs",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "repair_note": "rename:Finsupp.coe_finset_sum->Finsupp.coe_finsetSum",
+      "attempts": 1,
+      "elapsed_s": 22.37
+    },
+    {
+      "id": "M109930",
+      "module": "Development.AutomorphicArithmetic.CyclotomicBounds.DeRhamLattices.FiltrationEqSpanOfEisensteinPowBasisChange",
+      "status": "FIXED_VERIFIED_436",
+      "gt_category": "unknown_constant",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "repair_note": "rename:AddMonoidHom.finset_sum_apply->AddMonoidHom.finsetSum_apply",
+      "attempts": 1,
+      "elapsed_s": 15.02
+    }
+  ]
+}
