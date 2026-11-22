@@ -6,10 +6,13 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from mathlib436_transforms import (
     aemeasurable_candidates,
+    transform_finite_field_x_pow_card_sub_x,
     transform_finsupp_mapdomain_apply,
     transform_invalid_alt_zero,
+    transform_is_integral_algebra_map_iff,
     transform_is_maximal_under,
     transform_ldl_lower_inv_triangular,
+    transform_mathlib436_identifier_renames,
     transform_mvpolynomial_coeff,
     transform_mvpolynomial_coeff_zero,
     transform_mvpowerseries_pderiv_ring,
@@ -141,6 +144,37 @@ def test_mvpowerseries_pderiv_ring():
     err = "foo.lean:15:10: error: Application type mismatch in MvPowerSeries.pderiv and PowerSeries.derivative"
     out, notes = transform_mvpowerseries_pderiv_ring(src, err)
     assert "MvPowerSeries.pderiv 1 F + PowerSeries.derivative φ" in out, out
+    assert len(notes) == 2
+
+
+def test_is_integral_algebra_map_iff():
+    src = "    have h3 := (isIntegral_algebraMap_iff (algebraMap F (A.K ⧸ (e.symm i).asIdeal)).injective).1 h1\n"
+    err = "foo.lean:92:16: error: Function expected at\n  isIntegral_algebraMap_iff"
+    out, notes = transform_is_integral_algebra_map_iff(src, err)
+    assert "have h3 := isIntegral_algebraMap_iff.1 h1" in out, out
+    assert notes == ["is_integral_algebra_map_iff(1)"]
+
+
+def test_finite_field_x_pow_card_sub_x():
+    src = (
+        "  have hdeg := FiniteField.X_pow_card_sub_X_natDegree_eq (ZMod p) hp\n"
+        "  have hne := FiniteField.X_pow_card_sub_X_ne_zero F hq\n"
+    )
+    err = (
+        "Application type mismatch in FiniteField.X_pow_card_sub_X_natDegree_eq (ZMod p)\n"
+        "Application type mismatch in FiniteField.X_pow_card_sub_X_ne_zero F"
+    )
+    out, notes = transform_finite_field_x_pow_card_sub_x(src, err)
+    assert "Polynomial.natDegree_X_pow_sub_X hp" in out, out
+    assert "Polynomial.X_pow_sub_X_ne_zero hq" in out, out
+    assert len(notes) == 2
+
+
+def test_mathlib436_identifier_renames():
+    src = "  have h := (hH.preimage (continuous_mul_right _)).measurableSet\n  rw [integral_finset_sum]\n"
+    err = "error: Unknown identifier `continuous_mul_right`\nerror: Unknown identifier `integral_finset_sum`"
+    out, notes = transform_mathlib436_identifier_renames(src, err)
+    assert "continuous_mul_const" in out and "integral_finsetSum" in out, out
     assert len(notes) == 2
 
 

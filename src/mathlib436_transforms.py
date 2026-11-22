@@ -469,6 +469,90 @@ def transform_mvpowerseries_pderiv_ring(text: str, err: str) -> tuple[str, list[
     return out, notes
 
 
+def transform_is_integral_algebra_map_iff(text: str, err: str) -> tuple[str, list[str]]:
+    """
+    Drop the removed explicit injectivity argument from `(isIntegral_algebraMap_iff ...)`
+    when Lean 4.36 reports `Function expected at isIntegral_algebraMap_iff`.
+    """
+    if "Function expected at\n  isIntegral_algebraMap_iff" not in err:
+        return text, []
+    pat = re.compile(r"\(\s*isIntegral_algebraMap_iff\b")
+    res_chunks: list[str] = []
+    cursor = 0
+    count = 0
+    for m in pat.finditer(text):
+        if m.start() < cursor:
+            continue
+        # Match balanced outer parens ONLY (preserve trailing projections like `.1` / `.mp`)
+        depth = 0
+        j = m.start()
+        n = len(text)
+        while j < n:
+            ch = text[j]
+            if ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+                if depth == 0:
+                    j += 1
+                    break
+            j += 1
+        if depth != 0:
+            continue
+        res_chunks.append(text[cursor:m.start()])
+        res_chunks.append("isIntegral_algebraMap_iff")
+        cursor = j
+        count += 1
+    res_chunks.append(text[cursor:])
+    out = "".join(res_chunks)
+    if count > 0:
+        return out, [f"is_integral_algebra_map_iff({count})"]
+    return text, []
+
+
+def transform_finite_field_x_pow_card_sub_x(text: str, err: str) -> tuple[str, list[str]]:
+    """
+    Update deprecated `FiniteField.X_pow_card_sub_X_natDegree_eq <R> <h>` and
+    `FiniteField.X_pow_card_sub_X_ne_zero <R> <h>` to Mathlib 4.36
+    `Polynomial.natDegree_X_pow_sub_X <h>` / `Polynomial.X_pow_sub_X_ne_zero <h>`
+    (the ring argument `R` became implicit).
+    """
+    rules = (
+        ("FiniteField.X_pow_card_sub_X_natDegree_eq", "Polynomial.natDegree_X_pow_sub_X", "ff_x_pow_nat_degree"),
+        ("FiniteField.X_pow_card_sub_X_ne_zero", "Polynomial.X_pow_sub_X_ne_zero", "ff_x_pow_ne_zero"),
+    )
+    out = text
+    notes: list[str] = []
+    for old_name, new_name, tag in rules:
+        if old_name not in err:
+            continue
+        pat = re.compile(rf"\b{re.escape(old_name)}\s+(?:\([^)]+\)|[A-Za-z_][\w']*)\s+")
+        out, n = pat.subn(f"{new_name} ", out)
+        if n > 0:
+            notes.append(f"{tag}({n})")
+    return out, notes
+
+
+def transform_mathlib436_identifier_renames(text: str, err: str) -> tuple[str, list[str]]:
+    """
+    Error-gated renames for high-frequency Mathlib 4.33.1 -> 4.36.0 identifier moves
+    that are not always covered by `@[deprecated]` aliases.
+    """
+    renames = (
+        ("continuous_mul_right", "continuous_mul_const"),
+        ("integral_finset_sum", "integral_finsetSum"),
+    )
+    out = text
+    notes: list[str] = []
+    for old_id, new_id in renames:
+        if f"Unknown identifier `{old_id}`" not in err:
+            continue
+        out, n = re.subn(rf"\b{re.escape(old_id)}\b", new_id, out)
+        if n > 0:
+            notes.append(f"rename_{old_id}({n})")
+    return out, notes
+
+
 def apply_deterministic_v04_transforms(text: str, err: str) -> tuple[str, list[str]]:
     """Run all deterministic v0.4 transforms in safe order."""
     cur = text
@@ -483,6 +567,9 @@ def apply_deterministic_v04_transforms(text: str, err: str) -> tuple[str, list[s
         transform_power_series_ddx,
         transform_mvpowerseries_pderiv_ring,
         transform_finsupp_mapdomain_apply,
+        transform_is_integral_algebra_map_iff,
+        transform_finite_field_x_pow_card_sub_x,
+        transform_mathlib436_identifier_renames,
         transform_invalid_alt_zero,
         transform_noncomputable_def,
     ):
