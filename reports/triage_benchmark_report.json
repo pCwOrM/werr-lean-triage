@@ -1,0 +1,410 @@
+{
+  "source_dataset": "rohanarun/alpoge-rh-replay/port/triage/results.json",
+  "target_lean": "leanprover/lean4:v4.36.0",
+  "target_mathlib": "fc4f59e577feb1a4956671bc04ac18aaaf8cd842",
+  "dataset_summary": {
+    "total_triaged": 2940,
+    "ok_unchanged": 2489,
+    "fail_count": 451,
+    "ok_rate_pct": 84.66,
+    "by_category": {
+      "unknown_identifier": 83,
+      "unknown_constant": 77,
+      "app_type_mismatch": 60,
+      "other": 43,
+      "unsolved_goals": 37,
+      "type_mismatch": 35,
+      "no_goals_to_be_solved": 35,
+      "invalid_field_or_struct": 22,
+      "function_expected": 19,
+      "invalid_alternative_name": 15,
+      "typeclass_synthesis": 12,
+      "default_value_synthesis": 8,
+      "heartbeat_timeout": 3,
+      "invalid_projection": 2
+    },
+    "by_lane": {
+      "LANE_B_RENAME_MIGRATION": 182,
+      "LANE_D_SIGNATURE_OR_LLM": 179,
+      "LANE_A_TRIVIAL_PRUNE": 50,
+      "LANE_C_TACTIC_CLOSER": 37,
+      "LANE_E_HEARTBEAT_ESCALATE": 3
+    },
+    "top_missing_symbols": [
+      [
+        "coeff",
+        16
+      ],
+      [
+        "MvPolynomial.coeff",
+        14
+      ],
+      [
+        "continuous_finset_sum",
+        12
+      ],
+      [
+        "integral_finset_sum",
+        11
+      ],
+      [
+        "Finsupp.finset_sum_apply",
+        9
+      ],
+      [
+        "Polynomial.eval_finset_sum",
+        7
+      ],
+      [
+        "eval_finset_sum",
+        7
+      ],
+      [
+        "Polynomial.coeff",
+        7
+      ],
+      [
+        "Finsupp.coe_finset_sum",
+        5
+      ],
+      [
+        "Polynomial.finset_sum_coeff",
+        5
+      ],
+      [
+        "Submodule.IsLattice.span_eq_top",
+        4
+      ],
+      [
+        "coeff_add",
+        4
+      ],
+      [
+        "tendsto_finset_sum",
+        4
+      ],
+      [
+        "Algebra.adjoinCommRingOfComm",
+        4
+      ],
+      [
+        "integrable_finset_sum",
+        3
+      ],
+      [
+        "AddMonoidHom.finset_sum_apply",
+        3
+      ],
+      [
+        "finset_sum_coeff",
+        3
+      ],
+      [
+        "DistribMulAction.toAddMonoidHom",
+        3
+      ],
+      [
+        "Ideal.bot_prime",
+        3
+      ],
+      [
+        "Measurable.ennreal_tsum",
+        3
+      ],
+      [
+        "continuous_mul_right",
+        3
+      ],
+      [
+        "IsLocalization.comap_map_of_isPrime_disjoint",
+        3
+      ],
+      [
+        "IsLocalization.map_comap",
+        3
+      ],
+      [
+        "lintegral_finset_sum",
+        3
+      ],
+      [
+        "totalDegree_finset_sum",
+        3
+      ]
+    ]
+  },
+  "ab_benchmark": {
+    "evaluated_failures": 451,
+    "fixed_baseline": {
+      "lane_agreement_count": 179,
+      "lane_agreement_pct": 39.69,
+      "total_ms": 0.917,
+      "us_per_module": 2.03,
+      "system1_offload_candidates": 0
+    },
+    "werr_system1_router": {
+      "lane_agreement_count": 226,
+      "lane_agreement_pct": 50.11,
+      "total_ms": 349.251,
+      "us_per_module": 774.39,
+      "vram_bytes": 0,
+      "predicted_system1_actionable": 296,
+      "ground_truth_system1_lanes": 269,
+      "predicted_lane_distribution": {
+        "LANE_C_TACTIC_CLOSER": 208,
+        "LANE_D_SIGNATURE_OR_LLM": 143,
+        "LANE_B_RENAME_MIGRATION": 57,
+        "LANE_A_TRIVIAL_PRUNE": 31,
+        "LANE_E_HEARTBEAT_ESCALATE": 12
+      },
+      "top_tactic_distribution": {
+        "escalate_system2_llm": 155,
+        "aesop": 68,
+        "rename_mathlib_ident": 57,
+        "ring": 44,
+        "delete_redundant_line": 31,
+        "grind": 29,
+        "fun_prop": 26,
+        "linarith": 22,
+        "omega": 9,
+        "positivity": 9,
+        "norm_num": 1
+      }
+    }
+  },
+  "honest_scope_note": "This offline A/B benchmark measures diagnostic triage speed and repair-lane routing accuracy on real Lean 4.36.0 compiler excerpts. True end-to-end patch success rate (compiled pass rate with 0 sorry) MUST be measured live against leanprover/lean4:v4.36.0 using src/port_patch_runner.py once the active replay build finishes.",
+  "sample_routes": [
+    {
+      "id": "M000028",
+      "module": "CompanionTheory.AutomorphicTheory.BesselWaveGrids.InterlacingGrids.CloudProd",
+      "gt_category": "function_expected",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "top_tactic": "escalate_system2_llm",
+      "top_score": 0.839512,
+      "system1_actionable": false,
+      "missing_symbols": []
+    },
+    {
+      "id": "M000030",
+      "module": "CompanionTheory.AutomorphicTheory.BesselWaveGrids.InterlacingGrids.GridSum",
+      "gt_category": "typeclass_synthesis",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "top_tactic": "escalate_system2_llm",
+      "top_score": 0.634087,
+      "system1_actionable": false,
+      "missing_symbols": []
+    },
+    {
+      "id": "M000031",
+      "module": "CompanionTheory.AutomorphicTheory.BesselWaveGrids.InterlacingGrids.LagSum",
+      "gt_category": "typeclass_synthesis",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "top_tactic": "escalate_system2_llm",
+      "top_score": 0.620806,
+      "system1_actionable": false,
+      "missing_symbols": []
+    },
+    {
+      "id": "M000069",
+      "module": "CompanionTheory.AutomorphicTheory.HeckeStandardModules.ExistsCen",
+      "gt_category": "app_type_mismatch",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "top_tactic": "escalate_system2_llm",
+      "top_score": 0.836387,
+      "system1_actionable": false,
+      "missing_symbols": []
+    },
+    {
+      "id": "M000495",
+      "module": "CompanionTheory.HarishChandraModules.BesselParameterIntegrals.ContDiffOnExpPartialHomeomorphSymm",
+      "gt_category": "other",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "top_tactic": "fun_prop",
+      "top_score": 0.622369,
+      "system1_actionable": true,
+      "missing_symbols": []
+    },
+    {
+      "id": "M000526",
+      "module": "CompanionTheory.HarishChandraModules.KFiniteAnalyticVectors.AdmissibleSmoothVectors.IwaChol",
+      "gt_category": "unknown_identifier",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "top_tactic": "rename_mathlib_ident",
+      "top_score": 0.634087,
+      "system1_actionable": true,
+      "missing_symbols": [
+        "LDL.lowerInv_triangular"
+      ]
+    },
+    {
+      "id": "M000920",
+      "module": "CompanionTheory.SpectralGeometry.LocalGlobalProofs.AdelicAnalysis.FiniteCovolumeUnimodular",
+      "gt_category": "unsolved_goals",
+      "gt_lane": "LANE_C_TACTIC_CLOSER",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "top_tactic": "grind",
+      "top_score": 0.849669,
+      "system1_actionable": true,
+      "missing_symbols": []
+    },
+    {
+      "id": "M002046",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.AdelicCMFields.UnitaryHeckeCharacterIdele",
+      "gt_category": "app_type_mismatch",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "top_tactic": "escalate_system2_llm",
+      "top_score": 0.851231,
+      "system1_actionable": false,
+      "missing_symbols": []
+    },
+    {
+      "id": "M002162",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.DivisorBase.MultiplicationKernelIdentity",
+      "gt_category": "unknown_constant",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "top_tactic": "ring",
+      "top_score": 0.939515,
+      "system1_actionable": true,
+      "missing_symbols": [
+        "Polynomial.eval₂_finset_prod"
+      ]
+    },
+    {
+      "id": "M002315",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.StabiliserCardinality",
+      "gt_category": "app_type_mismatch",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "top_tactic": "escalate_system2_llm",
+      "top_score": 0.851231,
+      "system1_actionable": false,
+      "missing_symbols": []
+    },
+    {
+      "id": "M002358",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.HeightDefect.SchurLatticeConjugates",
+      "gt_category": "unknown_constant",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "top_tactic": "rename_mathlib_ident",
+      "top_score": 0.634087,
+      "system1_actionable": true,
+      "missing_symbols": [
+        "dvd_iff_multiplicity_pos.mpr"
+      ]
+    },
+    {
+      "id": "M002361",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.HeightDefect.SphereBlockLogMean",
+      "gt_category": "unknown_identifier",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "top_tactic": "fun_prop",
+      "top_score": 0.939515,
+      "system1_actionable": true,
+      "missing_symbols": [
+        "coeff"
+      ]
+    },
+    {
+      "id": "M002399",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.JetGauges.NodalSeriesPeriods",
+      "gt_category": "app_type_mismatch",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "top_tactic": "escalate_system2_llm",
+      "top_score": 0.851231,
+      "system1_actionable": false,
+      "missing_symbols": []
+    },
+    {
+      "id": "M002408",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.JetGauges.RelativeDifferentValues",
+      "gt_category": "type_mismatch",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "top_tactic": "escalate_system2_llm",
+      "top_score": 0.634087,
+      "system1_actionable": false,
+      "missing_symbols": []
+    },
+    {
+      "id": "M002422",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.JetGauges.TraceFormDualSystem",
+      "gt_category": "other",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "top_tactic": "aesop",
+      "top_score": 0.1,
+      "system1_actionable": true,
+      "missing_symbols": []
+    },
+    {
+      "id": "M002620",
+      "module": "Development.AbelianVarietyTheory.BlockTheory.TorsionBlocks.LowerUnipotentMinors",
+      "gt_category": "unknown_identifier",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "top_tactic": "rename_mathlib_ident",
+      "top_score": 0.634087,
+      "system1_actionable": true,
+      "missing_symbols": [
+        "coeff"
+      ]
+    },
+    {
+      "id": "M002899",
+      "module": "Development.AbelianVarietyTheory.Counterexamples.LevelGroupExamples.RightInvariantOfCovolume",
+      "gt_category": "unsolved_goals",
+      "gt_lane": "LANE_C_TACTIC_CLOSER",
+      "werr_lane": "LANE_C_TACTIC_CLOSER",
+      "top_tactic": "fun_prop",
+      "top_score": 0.851231,
+      "system1_actionable": true,
+      "missing_symbols": []
+    },
+    {
+      "id": "M003856",
+      "module": "Development.AbelianVarietyTheory.Definitions.Divisors.PlacesOverU",
+      "gt_category": "unknown_constant",
+      "gt_lane": "LANE_B_RENAME_MIGRATION",
+      "werr_lane": "LANE_B_RENAME_MIGRATION",
+      "top_tactic": "rename_mathlib_ident",
+      "top_score": 0.634087,
+      "system1_actionable": true,
+      "missing_symbols": [
+        "Nat.Coprime.mul"
+      ]
+    },
+    {
+      "id": "M004039",
+      "module": "Development.AbelianVarietyTheory.Definitions.Foundations.ExistsFinsetOfEventually",
+      "gt_category": "type_mismatch",
+      "gt_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "werr_lane": "LANE_D_SIGNATURE_OR_LLM",
+      "top_tactic": "escalate_system2_llm",
+      "top_score": 0.851231,
+      "system1_actionable": false,
+      "missing_symbols": []
+    },
+    {
+      "id": "M004114",
+      "module": "Development.AbelianVarietyTheory.Definitions.Foundations.MemUnitaryGroupIffIsIsometry",
+      "gt_category": "heartbeat_timeout",
+      "gt_lane": "LANE_E_HEARTBEAT_ESCALATE",
+      "werr_lane": "LANE_E_HEARTBEAT_ESCALATE",
+      "top_tactic": "escalate_system2_llm",
+      "top_score": 0.851231,
+      "system1_actionable": false,
+      "missing_symbols": []
+    }
+  ]
+}
