@@ -402,12 +402,30 @@ def aemeasurable_candidates(err: str) -> list[str]:
     return uniq
 
 
+def transform_mvpolynomial_coeff_zero(text: str, err: str) -> tuple[str, list[str]]:
+    """
+    Replace `rw [coeff_zero]` / `rw [MvPolynomial.coeff_zero]` (removed in Mathlib 4.36)
+    with `simp only [AddMonoidAlgebra.coeff_zero, Finsupp.zero_apply]`.
+    """
+    if (
+        "Unknown identifier `coeff_zero`" not in err
+        and "Unknown constant `MvPolynomial.coeff_zero`" not in err
+    ):
+        return text, []
+    rx = re.compile(r"^(\s*)rw\s*\[\s*(?:MvPolynomial\.)?coeff_zero\s*\]\s*$", re.MULTILINE)
+    out, n = rx.subn(r"\1simp only [AddMonoidAlgebra.coeff_zero, Finsupp.zero_apply]", text)
+    if n > 0:
+        return out, [f"mvpoly_coeff_zero({n})"]
+    return text, []
+
+
 def apply_deterministic_v04_transforms(text: str, err: str) -> tuple[str, list[str]]:
     """Run all deterministic v0.4 transforms in safe order."""
     cur = text
     notes: list[str] = []
     for fn in (
         transform_mvpolynomial_coeff,
+        transform_mvpolynomial_coeff_zero,
         transform_polynomial_coeff,
         transform_prod_le_zero,
         transform_is_maximal_under,

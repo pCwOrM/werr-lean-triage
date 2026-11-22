@@ -122,7 +122,8 @@ python3 src/live_436_benchmark.py \
 
 ## 5. Community Contributions (`rohanarun/alpoge-rh-replay`)
 
-- **Lean `v4.36.0` Porting PRs:**
+- **Lean `v4.36.0` Porting PRs (52 modules submitted across 3 packets):**
+  - [`PR #32963`](https://github.com/rohanarun/alpoge-rh-replay/pull/32963) — `Port P0285: 48 ready modules to Lean 4.36` (depth-3 packet `P0285`, claim `#32755`: 45 unchanged + 3 patched — `M166247` & `M166255` auto-fixed by `werr-lean-triage v0.4.0`, `M165552` led to the new `mvpoly_coeff_zero` transform in `v0.4.1`; clean `--no-cache` build in 68.6s, `0` audit hits, `validate_ports.py` exit 0)
   - [`PR #32234`](https://github.com/rohanarun/alpoge-rh-replay/pull/32234) — `Port P0189 to Lean 4.36` (completes depth-2 packet `P0189`; clean `--no-cache` build, `0` audit hits, `validate_ports.py` exit 0)
   - [`PR #32236`](https://github.com/rohanarun/alpoge-rh-replay/pull/32236) — `Port P0196 to Lean 4.36` (completes depth-2 packet `P0196` including `MvPolynomial.coeff` → `.coeff` migration; clean `--no-cache` build, `0` audit hits, `validate_ports.py` exit 0)
 - **Lean `v4.33.1` Independent Replay:**

@@ -10,6 +10,7 @@ from mathlib436_transforms import (
     transform_is_maximal_under,
     transform_ldl_lower_inv_triangular,
     transform_mvpolynomial_coeff,
+    transform_mvpolynomial_coeff_zero,
     transform_noncomputable_def,
     transform_polynomial_coeff,
     transform_power_series_ddx,
@@ -107,6 +108,14 @@ def test_aemeasurable_candidates():
     cands = aemeasurable_candidates(err)
     assert "exact hc.measurable.aemeasurable" in cands
     assert "fun_prop" in cands
+
+
+def test_mvpolynomial_coeff_zero():
+    src = "  ext d\n  rw [coeff_zero]\n  by_contra hd\n"
+    err = "foo.lean:2:6: error(lean.unknownIdentifier): Unknown identifier `coeff_zero`"
+    out, notes = transform_mvpolynomial_coeff_zero(src, err)
+    assert "  simp only [AddMonoidAlgebra.coeff_zero, Finsupp.zero_apply]\n" in out, out
+    assert notes == ["mvpoly_coeff_zero(1)"]
 
 
 if __name__ == "__main__":
