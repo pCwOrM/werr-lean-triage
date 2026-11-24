@@ -12,6 +12,26 @@ An open-source, zero-VRAM **System-1 diagnostic triage and multi-pass mechanical
 > **Scientific Scope & Honesty Statement**  
 > `werr-lean-triage` is strictly a **System-1 triage router and mechanical migration helper**. It is **not** a proof kernel or theorem prover, and makes zero claims of proof validity on its own. Every candidate patch it generates is compiled and verified (`exit 0`, zero `sorry`, zero `admit`, zero new `axiom`, zero `native_decide`/`unsafe`/`implemented_by`) by the official pinned `leanprover/lean4:v4.36.0` compiler before being emitted.
 
+<p align="center">
+  <img src="assets/demo.gif" alt="WERR-Lean-Triage Live Demo" width="820" />
+</p>
+
+## ⚡ 30-Second Quick Start
+
+```bash
+git clone https://github.com/pCwOrM/werr-lean-triage.git && cd werr-lean-triage
+python -c "
+from src.mathlib436_transforms import transform_mvpolynomial_coeff
+out, notes = transform_mvpolynomial_coeff('theorem t : MvPolynomial.coeff k p != 0 := by sorry', 'Unknown constant \`MvPolynomial.coeff\`')
+print(out, notes)
+"
+```
+
+**Observed Output:**
+```text
+theorem t : p.coeff k != 0 := by sorry ['mvpoly_coeff_dot(1)']
+```
+
 ---
 
 ## 1. Empirical Error Taxonomy (2,940 Real Depth-0 Modules)
