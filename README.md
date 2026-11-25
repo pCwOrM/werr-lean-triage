@@ -32,6 +32,14 @@ print(out, notes)
 theorem t : p.coeff k != 0 := by sorry ['mvpoly_coeff_dot(1)']
 ```
 
+## 🧠 Codebase Knowledge Graph & Call-Flow
+
+<p align="center">
+  <img src="assets/architecture_graph.svg" alt="WERR-Lean-Triage Knowledge Graph" width="860" />
+</p>
+
+> Explore the interactive AST dependency graph ([`docs/architecture/graph.html`](docs/architecture/graph.html)) or the Mermaid call-flow explorer ([`docs/architecture/callflow.html`](docs/architecture/callflow.html)), generated deterministically via `graphify`.
+
 ---
 
 ## 1. Empirical Error Taxonomy (2,940 Real Depth-0 Modules)

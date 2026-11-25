@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>werr-lean-triage — Complete Call Flow &amp; Architecture Documentation</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg: #0f172a; --surface: #1e293b; --border: #334155;
+  --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+  --warn: #fbbf24; --err: #f87171; --ok: #34d399;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2.4rem; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h2 { font-size: 1.7rem; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+h3 { font-size: 1.25rem; margin: 32px 0 12px; color: var(--accent); }
+h4 { font-size: 1.05rem; margin: 20px 0 8px; color: var(--warn); }
+p { margin: 8px 0; color: var(--muted); }
+.subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; }
+.mermaid { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; overflow-x: auto; position: relative; }
+.mermaid.is-enhanced { padding: 0; overflow: hidden; min-height: 260px; }
+.mermaid-viewport { padding: 54px 24px 24px; overflow: hidden; cursor: grab; touch-action: none; min-height: 260px; }
+.mermaid-viewport.is-dragging { cursor: grabbing; }
+.mermaid-viewport svg { max-width: none !important; height: auto; transform-origin: 0 0; transition: transform 120ms ease; }
+.mermaid-toolbar { position: absolute; top: 10px; right: 10px; z-index: 3; display: flex; align-items: center; gap: 6px; padding: 6px; background: rgba(15,23,42,0.92); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
+.mermaid-toolbar button, .mermaid-toolbar .zoom-level { height: 28px; min-width: 32px; border: 1px solid var(--border); border-radius: 6px; background: #1e293b; color: var(--text); font: 600 0.78rem system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; }
+.mermaid-toolbar button { cursor: pointer; }
+.mermaid-toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+.mermaid-toolbar .zoom-level { min-width: 52px; color: var(--muted); background: transparent; }
+.call-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+.call-table th { background: #1a2744; color: var(--accent); text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+.call-table td { padding: 8px 14px; border: 1px solid var(--border); vertical-align: top; }
+.call-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+.tag-async { background: #7c3aed33; color: #a78bfa; }
+.tag-class { background: #05966933; color: var(--ok); }
+.tag-func { background: #2563eb33; color: var(--accent); }
+.tag-cmd { background: #d9770633; color: var(--warn); }
+.tag-endpoint { background: #dc262633; color: var(--err); }
+.tag-hook { background: #db277733; color: #f472b6; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 16px 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin: 16px 0; }
+.arrow-chain { font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--accent); padding: 10px; background: rgba(56,189,248,0.06); border-radius: 6px; }
+code { font-family: 'Fira Code', 'Cascadia Code', monospace; background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-size: 0.88em; }
+ul, ol { margin: 8px 0 8px 24px; color: var(--muted); }
+li { margin: 4px 0; }
+a { color: var(--accent); }
+hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+.nav { position: sticky; top: 0; background: var(--bg); z-index: 10; padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; }
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+@media (max-width: 768px) { .container { padding: 16px; } h1 { font-size: 1.8rem; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>werr-lean-triage — Complete Call Flow &amp; Architecture Documentation</h1>
+<p class="subtitle">Generated from graphify knowledge graph: 180 nodes, 328 edges, 17 communities. Commit: 9bd55e4</p>
+
+<div class="nav">
+    <a href="#overview">Architecture Overview</a>
+    <a href="#extract-pipeline">Extraction Pipeline</a>
+    <a href="#analysis-clustering">Analysis &amp; Clustering</a>
+    <a href="#outputs-docs">Outputs &amp; Docs</a>
+    <a href="#tests-fixtures">Tests &amp; Fixtures</a>
+    <a href="#failing-md">failing.md</a>
+</div>
+
+<!-- ====== Architecture Overview ====== -->
+<h2 id="overview">1. Architecture Overview</h2>
+
+<div class="mermaid">
+
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    EXTRACT_PIPELINE_5F350230("Extraction Pipeline<br/><small>55 nodes</small>")
+    class EXTRACT_PIPELINE_5F350230 module;
+    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>37 nodes</small>")
+    class ANALYSIS_CLUSTERING_C79796DA module;
+    OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>26 nodes</small>")
+    class OUTPUTS_DOCS_ED82387C module;
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>58 nodes</small>")
+    class TESTS_FIXTURES_B84B1DCC module;
+    FAILING_MD_00131FD8("failing.md<br/><small>4 nodes</small>")
+    class FAILING_MD_00131FD8 module;
+    ANALYSIS_CLUSTERING_C79796DA -->|imports x17| EXTRACT_PIPELINE_5F350230
+    ANALYSIS_CLUSTERING_C79796DA -->|calls x8| TESTS_FIXTURES_B84B1DCC
+    EXTRACT_PIPELINE_5F350230 -->|calls x7| ANALYSIS_CLUSTERING_C79796DA
+    EXTRACT_PIPELINE_5F350230 -->|imports x4| TESTS_FIXTURES_B84B1DCC
+    TESTS_FIXTURES_B84B1DCC -->|contains x2| ANALYSIS_CLUSTERING_C79796DA
+    TESTS_FIXTURES_B84B1DCC -->|imports| EXTRACT_PIPELINE_5F350230
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h4>Architecture Layers</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
+      <tr><td>Extraction Pipeline</td><td>55</td><td><code>0, 3</code></td></tr><tr><td>Analysis &amp; Clustering</td><td>37</td><td><code>1, 8</code></td></tr><tr><td>Outputs &amp; Docs</td><td>26</td><td><code>2</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>58</td><td><code>4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16</code></td></tr><tr><td>failing.md</td><td>4</td><td><code>9</code></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Core Flow</h4>
+    <div class="arrow-chain">Outputs &amp; Docs -&gt; Extraction Pipeline -&gt; Analysis &amp; Clustering -&gt; Tests &amp; Fixtures -&gt; failing.md</div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card">
+    <h4>Graph Report Highlights</h4>
+    <ul>
+      <li>180 nodes · 328 edges · 17 communities (9 shown, 8 thin omitted)</li>
+      <li>Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 34 edges (avg confidence: 0.86)</li>
+      <li>Token cost: 0 input · 0 output</li>
+      <li>1. `attempt_module_repair()` - 19 edges</li>
+      <li>2. `apply_deterministic_v04_transforms()` - 18 edges</li>
+      <li>3. `route_werr_system1()` - 11 edges</li>
+    </ul>
+  </div>
+</div>
+<hr>
+<!-- ====== 2. Extraction Pipeline ====== -->
+<h2 id="extract-pipeline">2. Extraction Pipeline</h2>
+<p>Extraction Pipeline groups implementation around ciyml, github, workflows, werr, mostly in .github/workflows/ci.yml, src/werr_tactic_router.py, src/triage_parser.py. This section covers 55 nodes and 94 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Extraction Pipeline (55 nodes, 94 edges)
+    subgraph extract_pipeline_src_werr_tactic_router_py_d0748df6["src/werr_tactic_router.py"]
+        src_werr_tactic_router_e47febd8("werr_tactic_router.py")
+        src_werr_tactic_router_route_werr_system1_c56cd3c6("route_werr_system1()<br/><small>src/werr_tactic_router.py</small>")
+        src_werr_tactic_router_route_fixed_baseline_f870b07d("route_fixed_baseline()<br/><small>src/werr_tactic_router.py</small>")
+        src_werr_tactic_router_routedecision_b0f907f0("RouteDecision<br/><small>src/werr_tactic_router.py</small>")
+        src_werr_tactic_router_feature_to_boundary_coord_9f9ab1cf("feature_to_boundary_coords()<br/><small>src/werr_tactic_router.py</small>")
+        src_werr_tactic_router_polynomial_escape_respons_80500ebf("polynomial_escape_response()<br/><small>src/werr_tactic_router.py</small>")
+    end
+    subgraph extract_pipeline_External_generated_e23197dc["External / generated"]
+        math_7a488390("math")
+        json_05d97e6e("json")
+        argparse_e750ee7c("argparse")
+    end
+    subgraph extract_pipeline_src_triage_parser_py_5c8c1dad["src/triage_parser.py"]
+        src_triage_parser_parse_results_c8994f05("parse_results()<br/><small>src/triage_parser.py</small>")
+        src_triage_parser_summarize_e6a03c8f("summarize()<br/><small>src/triage_parser.py</small>")
+        src_triage_parser_triagerecord_c1014318("TriageRecord<br/><small>src/triage_parser.py</small>")
+    end
+    subgraph extract_pipeline_src_benchmark_ab_py_fd4536a5["src/benchmark_ab.py"]
+        src_benchmark_ab_4d8aa413("benchmark_ab.py")
+        src_benchmark_ab_main_b35ef0ff("main()<br/><small>src/benchmark_ab.py</small>")
+    end
+    subgraph extract_pipeline_src_cli_py_901c2428["src/cli.py"]
+        src_cli_d851751d("cli.py")
+        src_cli_main_5d3984b3("main()<br/><small>src/cli.py</small>")
+    end
+    subgraph extract_pipeline_src_extract_mathlib_renames_py_82bb89e8["src/extract_mathlib_renames.py"]
+        src_extract_mathlib_renames_main_18b5ce14("main()<br/><small>src/extract_mathlib_renames.py</small>")
+        src_extract_mathlib_renames_extract_renames_3fd0cbbc("extract_renames()<br/><small>src/extract_mathlib_renames.py</small>")
+    end
+    src_werr_tactic_router_route_fixed_baseline_f870b07d -->|calls| src_werr_tactic_router_routedecision_b0f907f0
+    src_werr_tactic_router_route_werr_system1_c56cd3c6 -->|calls| src_werr_tactic_router_routedecision_b0f907f0
+    src_werr_tactic_router_route_werr_system1_c56cd3c6 -->|calls| math_7a488390
+    src_werr_tactic_router_route_werr_system1_c56cd3c6 -->|calls| src_werr_tactic_router_feature_to_boundary_coord_9f9ab1cf
+    src_werr_tactic_router_route_werr_system1_c56cd3c6 -->|calls| src_werr_tactic_router_polynomial_escape_respons_80500ebf
+    src_benchmark_ab_main_b35ef0ff -->|calls| src_triage_parser_parse_results_c8994f05
+    src_benchmark_ab_main_b35ef0ff -->|calls| src_triage_parser_summarize_e6a03c8f
+    src_benchmark_ab_main_b35ef0ff -->|calls| src_werr_tactic_router_route_fixed_baseline_f870b07d
+    src_benchmark_ab_main_b35ef0ff -->|calls| src_werr_tactic_router_route_werr_system1_c56cd3c6
+    src_benchmark_ab_main_b35ef0ff -->|calls| json_05d97e6e
+    src_cli_main_5d3984b3 -->|calls| argparse_e750ee7c
+    src_cli_main_5d3984b3 -->|calls| src_triage_parser_parse_results_c8994f05
+    src_cli_main_5d3984b3 -->|calls| json_05d97e6e
+    src_cli_main_5d3984b3 -->|calls| src_triage_parser_summarize_e6a03c8f
+    src_cli_main_5d3984b3 -->|calls| src_triage_parser_triagerecord_c1014318
+    src_extract_mathlib_renames_main_18b5ce14 -->|calls| argparse_e750ee7c
+    src_extract_mathlib_renames_main_18b5ce14 -->|calls| src_extract_mathlib_renames_extract_renames_3fd0cbbc
+    src_extract_mathlib_renames_main_18b5ce14 -->|calls| json_05d97e6e
+    src_triage_parser_parse_results_c8994f05 -->|calls| json_05d97e6e
+    src_triage_parser_parse_results_c8994f05 -->|calls| src_triage_parser_triagerecord_c1014318
+    src_benchmark_ab_4d8aa413 -->|imports| src_triage_parser_parse_results_c8994f05
+    src_benchmark_ab_4d8aa413 -->|imports| src_triage_parser_summarize_e6a03c8f
+    src_benchmark_ab_4d8aa413 -->|imports| src_werr_tactic_router_route_fixed_baseline_f870b07d
+    src_benchmark_ab_4d8aa413 -->|imports| src_werr_tactic_router_route_werr_system1_c56cd3c6
+    %% Omitted for readability: 37 nodes, 11 edges
+    class src_werr_tactic_router_e47febd8 api;
+    class src_werr_tactic_router_route_werr_system1_c56cd3c6 api;
+    class src_werr_tactic_router_route_fixed_baseline_f870b07d api;
+    class src_werr_tactic_router_routedecision_b0f907f0 api;
+    class src_werr_tactic_router_feature_to_boundary_coord_9f9ab1cf function;
+    class src_werr_tactic_router_polynomial_escape_respons_80500ebf function;
+    class math_7a488390 function;
+    class json_05d97e6e function;
+    class argparse_e750ee7c function;
+    class src_triage_parser_parse_results_c8994f05 function;
+    class src_triage_parser_summarize_e6a03c8f function;
+    class src_triage_parser_triagerecord_c1014318 klass;
+    class src_benchmark_ab_4d8aa413 module;
+    class src_benchmark_ab_main_b35ef0ff function;
+    class src_cli_d851751d entry;
+    class src_cli_main_5d3984b3 function;
+    class src_extract_mathlib_renames_main_18b5ce14 function;
+    class src_extract_mathlib_renames_extract_renames_3fd0cbbc function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>TriageRecord</code><br><small style="color:var(--muted)">src/triage_parser.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>main()</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>parse_results()</code><br><small style="color:var(--muted)">src/triage_parser.py</small><br>+3 more</td>
+  <td>No direct outbound edge</td>
+  <td>TriageRecord node in src/triage_parser.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>RouteDecision</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>route_fixed_baseline()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small><br><code>route_werr_system1()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>RouteDecision node in src/werr_tactic_router.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>summarize()</code><br><small style="color:var(--muted)">src/triage_parser.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>benchmark_ab.py</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>main()</code><br><small style="color:var(--muted)">src/cli.py</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>summarize() node in src/triage_parser.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>route_fixed_baseline()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>benchmark_ab.py</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small><br><code>main()</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small></td>
+  <td><code>RouteDecision</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small><br><code>TriageRecord</code><br><small style="color:var(--muted)">src/triage_parser.py</small></td>
+  <td>route_fixed_baseline() node in src/werr_tactic_router.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>route_werr_system1()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>benchmark_ab.py</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br>+1 more</td>
+  <td><code>feature_to_boundary_coords()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small><br><code>math</code><br><code>polynomial_escape_response()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small><br>+2 more</td>
+  <td>route_werr_system1() node in src/werr_tactic_router.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>json</code><br><code>parse_results()</code><br><small style="color:var(--muted)">src/triage_parser.py</small><br><code>route_fixed_baseline()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small><br>+3 more</td>
+  <td>main() node in src/benchmark_ab.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>argparse</code><br><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>json</code><br>+3 more</td>
+  <td>main() node in src/cli.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>extract_renames()</code><br><small style="color:var(--muted)">src/extract_mathlib_renames.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">src/extract_mathlib_renames.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>extract_renames() node in src/extract_mathlib_renames.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">src/extract_mathlib_renames.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>argparse</code><br><code>extract_renames()</code><br><small style="color:var(--muted)">src/extract_mathlib_renames.py</small><br><code>json</code></td>
+  <td>main() node in src/extract_mathlib_renames.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>parse_results()</code><br><small style="color:var(--muted)">src/triage_parser.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>benchmark_ab.py</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br>+3 more</td>
+  <td><code>classify_excerpt()</code><br><small style="color:var(--muted)">src/triage_parser.py</small><br><code>json</code><br><code>TriageRecord</code><br><small style="color:var(--muted)">src/triage_parser.py</small></td>
+  <td>parse_results() node in src/triage_parser.py.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>feature_to_boundary_coords()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>route_werr_system1()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><code>hashlib</code></td>
+  <td>feature_to_boundary_coords() node in src/werr_tactic_router.py.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>polynomial_escape_response()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>route_werr_system1()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>polynomial_escape_response() node in src/werr_tactic_router.py.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>benchmark_ab.py</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>collections</code><br><code>json</code><br><code>parse_results()</code><br><small style="color:var(--muted)">src/triage_parser.py</small><br>+7 more</td>
+  <td>Module file in src/benchmark_ab.py.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>argparse</code><br><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>json</code><br>+7 more</td>
+  <td>Module file in src/cli.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>extract_mathlib_renames.py</code><br><small style="color:var(--muted)">src/extract_mathlib_renames.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>argparse</code><br><code>json</code><br><code>pathlib</code><br>+1 more</td>
+  <td>Module file in src/extract_mathlib_renames.py.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Path</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Path node in project.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>triage_parser.py</code><br><small style="color:var(--muted)">src/triage_parser.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>benchmark_ab.py</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br>+1 more</td>
+  <td><code>collections</code><br><code>dataclasses</code><br><code>json</code><br>+3 more</td>
+  <td>Module file in src/triage_parser.py.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Path</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Path node in project.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>werr_tactic_router.py</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>benchmark_ab.py</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><code>dataclasses</code><br><code>hashlib</code><br><code>math</code><br>+3 more</td>
+  <td>Module file in src/werr_tactic_router.py.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Honest A/B Benchmark: Fixed-Order vs. Rule-Based vs. WERR System-1 TacticRouter…</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Honest A/B Benchmark: Fixed-Order vs. Rule-Based vs. WERR System-1 TacticRouter….</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>Turnkey CLI for WERR-Lean-Triage (0-VRAM System-1 Lean 4.33.1 -&gt; 4.36.0 Porting…</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Turnkey CLI for WERR-Lean-Triage (0-VRAM System-1 Lean 4.33.1 -&gt; 4.36.0 Porting….</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>Extract official Mathlib deprecation/rename pairs directly from Mathlib source…</code><br><small style="color:var(--muted)">src/extract_mathlib_renames.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Extract official Mathlib deprecation/rename pairs directly from Mathlib source….</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>Diagnostic parser for Lean 4.33.1 -&gt; 4.36.0 porting triage records.</code><br><small style="color:var(--muted)">src/triage_parser.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Diagnostic parser for Lean 4.33.1 -&gt; 4.36.0 porting triage records..</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>Deterministic quadratic polynomial escape dynamics (z_{n+1} = z_n^2 + c).…</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Deterministic quadratic polynomial escape dynamics (z_{n+1} = z_n^2 + c).….</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>Map (diagnostic text, candidate tactic) deterministically onto a resonant patch…</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Map (diagnostic text, candidate tactic) deterministically onto a resonant patch….</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>System-1 0-VRAM Tactic &amp; Repair-Lane Router. Combines deterministic…</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for System-1 0-VRAM Tactic &amp; Repair-Lane Router. Combines deterministic….</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>WERR-Lean-TacticRouter (System-1 0-VRAM Heuristic Policy for Lean 4.33 -&gt; 4.36…</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for WERR-Lean-TacticRouter (System-1 0-VRAM Heuristic Policy for Lean 4.33 -&gt; 4.36….</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>Naive fixed-order baseline: always tries simp_all first, then escalates to LLM.</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Naive fixed-order baseline: always tries simp_all first, then escalates to LLM..</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>argparse</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>extract_mathlib_renames.py</code><br><small style="color:var(--muted)">src/extract_mathlib_renames.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br>+4 more</td>
+  <td>No direct outbound edge</td>
+  <td>argparse node in project.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>collections</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>benchmark_ab.py</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small><br><code>triage_parser.py</code><br><small style="color:var(--muted)">src/triage_parser.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>collections node in project.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>.github/workflows/ci.yml</code></td><td>19 nodes</td></tr>
+<tr><td><code>src/werr_tactic_router.py</code></td><td>11 nodes</td></tr>
+<tr><td><code>src/triage_parser.py</code></td><td>5 nodes</td></tr>
+<tr><td><code>src/extract_mathlib_renames.py</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/benchmark_ab.py</code></td><td>3 nodes</td></tr>
+<tr><td><code>src/cli.py</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x30, calls x20, imports x16, imports x14. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 3. Analysis & Clustering ====== -->
+<h2 id="analysis-clustering">3. Analysis &amp; Clustering</h2>
+<p>Analysis &amp; Clustering groups implementation around live, 436, benchmarkpy, triage, mostly in src/live_436_benchmark.py, reports/triage_benchmark_report.md, src/port_patch_runner.py. This section covers 37 nodes and 60 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Analysis &amp; Clustering (37 nodes, 60 edges)
+    subgraph analysis_clustering_src_live_436_benchmark_py_db5e7e79["src/live_436_benchmark.py"]
+        src_live_436_benchmark_attempt_module_repair_c57d292c("attempt_module_repair()<br/><small>src/live_436_benchmark.py</small>")
+        src_live_436_benchmark_aad5989b("live_436_benchmark.py")
+        src_live_436_benchmark_compile_temp_file_f6a76eba("compile_temp_file()<br/><small>src/live_436_benchmark.py</small>")
+        src_live_436_benchmark_main_7c5317f9("main()<br/><small>src/live_436_benchmark.py</small>")
+        src_live_436_benchmark_sha256_text_249e4680("sha256_text()<br/><small>src/live_436_benchmark.py</small>")
+        src_live_436_benchmark_resolve_rename_734bb8f1("resolve_rename()<br/><small>src/live_436_benchmark.py</small>")
+        src_live_436_benchmark_has_new_forbidden_fea02533("has_new_forbidden()<br/><small>src/live_436_benchmark.py</small>")
+        src_live_436_benchmark_count_errors_142cb4b1("count_errors()<br/><small>src/live_436_benchmark.py</small>")
+        src_live_436_benchmark_find_map_smul_insert_pos_88ec2b79("_find_map_smul_insert_pos()<br/><small>src/live_436_benchmark.py</small>")
+        src_live_436_benchmark_format_porting_note_1c58fdd5("_format_porting_note()<br/><small>src/live_436_benchmark.py</small>")
+    end
+    subgraph analysis_clustering_External_generated_9ee0240b["External / generated"]
+        time_714eea0f("time")
+        difflib_2959f436("difflib")
+        tempfile_30fe567d("tempfile")
+        subprocess_d2d1e1c0("subprocess")
+        hashlib_7616ac97("hashlib")
+    end
+    subgraph analysis_clustering_src_port_patch_runner_py_92b16185["src/port_patch_runner.py"]
+        src_port_patch_runner_4f48a14b("port_patch_runner.py")
+        src_port_patch_runner_verify_candidate_patch_85d3eb78("verify_candidate_patch()<br/><small>src/port_patch_runner.py</small>")
+    end
+    src_mathlib436_transforms_aemeasurable_candidate_b96759e2("aemeasurable_candidates()<br/><small>src/mathlib436_transforms.py</small>")
+    src_live_436_benchmark_attempt_module_repair_c57d292c -->|calls| time_714eea0f
+    src_live_436_benchmark_attempt_module_repair_c57d292c -->|calls| src_live_436_benchmark_sha256_text_249e4680
+    src_live_436_benchmark_attempt_module_repair_c57d292c -->|calls| src_live_436_benchmark_compile_temp_file_f6a76eba
+    src_live_436_benchmark_attempt_module_repair_c57d292c -->|calls| src_live_436_benchmark_resolve_rename_734bb8f1
+    src_live_436_benchmark_attempt_module_repair_c57d292c -->|calls| src_live_436_benchmark_has_new_forbidden_fea02533
+    src_live_436_benchmark_attempt_module_repair_c57d292c -->|calls| src_live_436_benchmark_count_errors_142cb4b1
+    src_live_436_benchmark_attempt_module_repair_c57d292c -->|calls| src_mathlib436_transforms_aemeasurable_candidate_b96759e2
+    src_live_436_benchmark_attempt_module_repair_c57d292c -->|calls| src_live_436_benchmark_find_map_smul_insert_pos_88ec2b79
+    src_live_436_benchmark_attempt_module_repair_c57d292c -->|calls| difflib_2959f436
+    src_live_436_benchmark_attempt_module_repair_c57d292c -->|calls| src_live_436_benchmark_format_porting_note_1c58fdd5
+    src_live_436_benchmark_compile_temp_file_f6a76eba -->|calls| tempfile_30fe567d
+    src_live_436_benchmark_compile_temp_file_f6a76eba -->|calls| subprocess_d2d1e1c0
+    src_live_436_benchmark_main_7c5317f9 -->|calls| time_714eea0f
+    src_live_436_benchmark_sha256_text_249e4680 -->|calls| hashlib_7616ac97
+    src_port_patch_runner_verify_candidate_patch_85d3eb78 -->|calls| subprocess_d2d1e1c0
+    src_port_patch_runner_verify_candidate_patch_85d3eb78 -->|calls| difflib_2959f436
+    src_live_436_benchmark_aad5989b -->|imports| difflib_2959f436
+    src_live_436_benchmark_aad5989b -->|imports| hashlib_7616ac97
+    src_live_436_benchmark_aad5989b -->|imports| subprocess_d2d1e1c0
+    src_live_436_benchmark_aad5989b -->|imports| tempfile_30fe567d
+    src_live_436_benchmark_aad5989b -->|imports| time_714eea0f
+    src_live_436_benchmark_aad5989b -->|imports| src_mathlib436_transforms_aemeasurable_candidate_b96759e2
+    src_port_patch_runner_4f48a14b -->|imports| difflib_2959f436
+    src_port_patch_runner_4f48a14b -->|imports| hashlib_7616ac97
+    %% Omitted for readability: 19 nodes, 2 edges
+    class src_live_436_benchmark_attempt_module_repair_c57d292c function;
+    class src_live_436_benchmark_aad5989b module;
+    class src_live_436_benchmark_compile_temp_file_f6a76eba function;
+    class src_live_436_benchmark_main_7c5317f9 function;
+    class src_live_436_benchmark_sha256_text_249e4680 function;
+    class src_live_436_benchmark_resolve_rename_734bb8f1 function;
+    class src_live_436_benchmark_has_new_forbidden_fea02533 function;
+    class src_live_436_benchmark_count_errors_142cb4b1 function;
+    class src_live_436_benchmark_find_map_smul_insert_pos_88ec2b79 function;
+    class src_live_436_benchmark_format_porting_note_1c58fdd5 function;
+    class time_714eea0f function;
+    class difflib_2959f436 function;
+    class tempfile_30fe567d function;
+    class subprocess_d2d1e1c0 function;
+    class hashlib_7616ac97 function;
+    class src_port_patch_runner_4f48a14b module;
+    class src_port_patch_runner_verify_candidate_patch_85d3eb78 function;
+    class src_mathlib436_transforms_aemeasurable_candidate_b96759e2 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>main()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>main()</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><code>_find_map_smul_insert_pos()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>_format_porting_note()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>aemeasurable_candidates()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br>+11 more</td>
+  <td>attempt_module_repair() node in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>compile_temp_file()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><code>subprocess</code><br><code>tempfile</code></td>
+  <td>compile_temp_file() node in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>count_errors()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><code>re</code></td>
+  <td>count_errors() node in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>_find_map_smul_insert_pos()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><code>re</code></td>
+  <td>_find_map_smul_insert_pos() node in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>_format_porting_note()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>_format_porting_note() node in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>has_new_forbidden()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>has_new_forbidden() node in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>count_bad()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>count_bad() node in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>argparse</code><br><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>json</code><br>+2 more</td>
+  <td>main() node in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>resolve_rename()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>resolve_rename() node in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>sha256_text()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><code>hashlib</code></td>
+  <td>sha256_text() node in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>aemeasurable_candidates()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>test aemeasurable candidates()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><code>re</code></td>
+  <td>aemeasurable_candidates() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>has_forbidden_axiom()</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>verify_candidate_patch()</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>has_forbidden_axiom() node in src/port_patch_runner.py.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>sha256_file()</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>verify_candidate_patch()</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small></td>
+  <td><code>hashlib</code></td>
+  <td>sha256_file() node in src/port_patch_runner.py.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>verify_candidate_patch()</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>difflib</code><br><code>has_forbidden_axiom()</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small><br><code>json</code><br>+2 more</td>
+  <td>verify_candidate_patch() node in src/port_patch_runner.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>test_aemeasurable_candidates()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>aemeasurable_candidates()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><code>aemeasurable_candidates()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>argparse</code><br><code>concurrent_futures</code><br>+15 more</td>
+  <td>Module file in src/live_436_benchmark.py.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>Path</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Path node in project.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>port_patch_runner.py</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>argparse</code><br><code>difflib</code><br><code>hashlib</code><br>+4 more</td>
+  <td>Module file in src/port_patch_runner.py.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Path</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Path node in project.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Find the line containing `Measure.map_smul` at or after `err_lineno` within the…</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Find the line containing `Measure.map_smul` at or after `err_lineno` within the….</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>WERR-Lean-Triage v0.4: Multi-Pass Iterative System-1 Lean 4.33.1 -&gt; 4.36.0…</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for WERR-Lean-Triage v0.4: Multi-Pass Iterative System-1 Lean 4.33.1 -&gt; 4.36.0….</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>Resolve an unknown Lean 4.33.1 symbol to its official Lean 4.36.0 name,…</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Resolve an unknown Lean 4.33.1 symbol to its official Lean 4.36.0 name,….</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>Extract targeted AEMeasurable closer tactics when Lean reports an unsolved `⊢…</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Extract targeted AEMeasurable closer tactics when Lean reports an unsolved `⊢….</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>Live Lean 4.36.0 Porting Patch Verification Harness (Post-Replay Execution).…</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Live Lean 4.36.0 Porting Patch Verification Harness (Post-Replay Execution).….</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>concurrent_futures</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>concurrent_futures node in project.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>difflib</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>port_patch_runner.py</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>difflib node in project.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>hashlib</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>feature_to_boundary_coords()</code><br><small style="color:var(--muted)">src/werr_tactic_router.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>port_patch_runner.py</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small><br>+3 more</td>
+  <td>No direct outbound edge</td>
+  <td>Caches analysis results or computes cache keys.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>subprocess</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>compile_temp_file()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>port_patch_runner.py</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>subprocess node in project.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>tempfile</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>compile_temp_file()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>port_patch_runner.py</code><br><small style="color:var(--muted)">src/port_patch_runner.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>tempfile node in project.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>time</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>benchmark_ab.py</code><br><small style="color:var(--muted)">src/benchmark_ab.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br>+2 more</td>
+  <td>No direct outbound edge</td>
+  <td>time node in project.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/live_436_benchmark.py</code></td><td>14 nodes</td></tr>
+<tr><td><code>reports/triage_benchmark_report.md</code></td><td>7 nodes</td></tr>
+<tr><td><code>src/port_patch_runner.py</code></td><td>5 nodes</td></tr>
+<tr><td><code>src/mathlib436_transforms.py</code></td><td>2 nodes</td></tr>
+<tr><td><code>tests/test_mathlib436_transforms.py</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x20, contains x19, imports x10, explains x5. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 4. Outputs & Docs ====== -->
+<h2 id="outputs-docs">4. Outputs &amp; Docs</h2>
+<p>Outputs &amp; Docs groups implementation around readmemd, live, 436, reportmd, mostly in README.md, reports/live_436_v03_report.md, reports/live_436_v04_report.md. This section covers 26 nodes and 25 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Outputs &amp; Docs (26 nodes, 25 edges)
+    subgraph outputs_docs_README_md_22466bb2["README.md"]
+        readme_werr_lean_triage_0_vram_system_1_porting_5b96dcf3("WERR-Lean-Triage: 0-VRAM System-1 Porti...<br/><small>README.md</small>")
+        readme_3_quickstart_for_contributors_b8f08e25("3. Quickstart for Contributors<br/><small>README.md</small>")
+        readme_f78a71af("README.md")
+        readme_2_live_lean_v4_36_0_verification_results_c58ada16("2. Live Lean v4.36.0 Verification Res...<br/><small>README.md</small>")
+        readme_1_empirical_error_taxonomy_2_940_real_dep_99ba5b25("1. Empirical Error Taxonomy (2,940 Real...<br/><small>README.md</small>")
+        readme_1_run_unit_tests_for_v0_4_transforms_1897a2ac("1. Run Unit Tests for v0.4 Transforms<br/><small>README.md</small>")
+        readme_2_inspect_triage_breakdown_8b0c6061("2. Inspect Triage Breakdown<br/><small>README.md</small>")
+        readme_3_regenerate_the_official_mathlib_rename_d629f9c2("3. Regenerate the Official Mathlib Rena...<br/><small>README.md</small>")
+        readme_4_limitations_dual_system_design_89bdd63e("4. Limitations &amp; Dual-System Design<br/><small>README.md</small>")
+        readme_4_run_verified_0_sorry_mechanical_repair_5465e5eb("4. Run Verified 0 sorry Mechanical Re...<br/><small>README.md</small>")
+        readme_5_batch_parallel_run_over_all_failures_in_b6b8a6a1("5. Batch Parallel Run Over All Failures...<br/><small>README.md</small>")
+        readme_5_community_contributions_rohanarun_alpog_faa36ed3("5. Community Contributions (rohanarun/...<br/><small>README.md</small>")
+        readme_highlights_of_verified_real_fixes_0_sorry_f709d72e("Highlights of Verified Real Fixes (0 s...<br/><small>README.md</small>")
+        readme_license_edbe4ad9("License<br/><small>README.md</small>")
+    end
+    subgraph outputs_docs_reports_live_436_v03_report_md_bfcc840d["reports/live_436_v03_report.md"]
+        reports_live_436_v03_report_werr_lean_triage_v0_210f1055("WERR-Lean-Triage v0.3: Live Lean 4.36.0...<br/><small>reports/live_436_v03_report.md</small>")
+        reports_live_436_v03_report_391ee62b("live_436_v03_report.md")
+    end
+    subgraph outputs_docs_reports_live_436_v04_report_md_edc11ce3["reports/live_436_v04_report.md"]
+        reports_live_436_v04_report_werr_lean_triage_v0_a7b530f0("WERR-Lean-Triage v0.4 — Live Lean v4.3...<br/><small>reports/live_436_v04_report.md</small>")
+        reports_live_436_v04_report_c12fabbf("live_436_v04_report.md")
+    end
+    readme_f78a71af -->|references| reports_live_436_v04_report_c12fabbf
+    readme_f78a71af -->|references| reports_live_436_v03_report_391ee62b
+    readme_f78a71af -->|contains| readme_werr_lean_triage_0_vram_system_1_porting_5b96dcf3
+    readme_2_live_lean_v4_36_0_verification_results_c58ada16 -->|contains| readme_highlights_of_verified_real_fixes_0_sorry_f709d72e
+    readme_3_quickstart_for_contributors_b8f08e25 -->|contains| readme_1_run_unit_tests_for_v0_4_transforms_1897a2ac
+    readme_3_quickstart_for_contributors_b8f08e25 -->|contains| readme_2_inspect_triage_breakdown_8b0c6061
+    readme_3_quickstart_for_contributors_b8f08e25 -->|contains| readme_3_regenerate_the_official_mathlib_rename_d629f9c2
+    readme_3_quickstart_for_contributors_b8f08e25 -->|contains| readme_4_run_verified_0_sorry_mechanical_repair_5465e5eb
+    readme_3_quickstart_for_contributors_b8f08e25 -->|contains| readme_5_batch_parallel_run_over_all_failures_in_b6b8a6a1
+    readme_werr_lean_triage_0_vram_system_1_porting_5b96dcf3 -->|contains| readme_3_quickstart_for_contributors_b8f08e25
+    readme_werr_lean_triage_0_vram_system_1_porting_5b96dcf3 -->|contains| readme_4_limitations_dual_system_design_89bdd63e
+    readme_werr_lean_triage_0_vram_system_1_porting_5b96dcf3 -->|contains| readme_5_community_contributions_rohanarun_alpog_faa36ed3
+    readme_werr_lean_triage_0_vram_system_1_porting_5b96dcf3 -->|contains| readme_license_edbe4ad9
+    readme_werr_lean_triage_0_vram_system_1_porting_5b96dcf3 -->|contains| readme_1_empirical_error_taxonomy_2_940_real_dep_99ba5b25
+    readme_werr_lean_triage_0_vram_system_1_porting_5b96dcf3 -->|contains| readme_2_live_lean_v4_36_0_verification_results_c58ada16
+    reports_live_436_v03_report_391ee62b -->|contains| reports_live_436_v03_report_werr_lean_triage_v0_210f1055
+    reports_live_436_v04_report_c12fabbf -->|contains| reports_live_436_v04_report_werr_lean_triage_v0_a7b530f0
+    %% Omitted for readability: 8 nodes, 0 edges
+    class readme_werr_lean_triage_0_vram_system_1_porting_5b96dcf3 concept;
+    class readme_3_quickstart_for_contributors_b8f08e25 concept;
+    class readme_f78a71af concept;
+    class readme_2_live_lean_v4_36_0_verification_results_c58ada16 concept;
+    class readme_1_empirical_error_taxonomy_2_940_real_dep_99ba5b25 concept;
+    class readme_1_run_unit_tests_for_v0_4_transforms_1897a2ac concept;
+    class readme_2_inspect_triage_breakdown_8b0c6061 concept;
+    class readme_3_regenerate_the_official_mathlib_rename_d629f9c2 concept;
+    class readme_4_limitations_dual_system_design_89bdd63e concept;
+    class readme_4_run_verified_0_sorry_mechanical_repair_5465e5eb concept;
+    class readme_5_batch_parallel_run_over_all_failures_in_b6b8a6a1 concept;
+    class readme_5_community_contributions_rohanarun_alpog_faa36ed3 concept;
+    class readme_highlights_of_verified_real_fixes_0_sorry_f709d72e concept;
+    class readme_license_edbe4ad9 concept;
+    class reports_live_436_v03_report_werr_lean_triage_v0_210f1055 concept;
+    class reports_live_436_v03_report_391ee62b concept;
+    class reports_live_436_v04_report_werr_lean_triage_v0_a7b530f0 concept;
+    class reports_live_436_v04_report_c12fabbf concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>README.md</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing README.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>1. Empirical Error Taxonomy (2,940 Real Depth-0 Modules)</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 1. Empirical Error Taxonomy (2,940 Real Depth-0 Modules).</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>1. Run Unit Tests for `v0.4` Transforms</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 1. Run Unit Tests for `v0.4` Transforms.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>2. Inspect Triage Breakdown</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 2. Inspect Triage Breakdown.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>2. Live Lean `v4.36.0` Verification Results (`v0.2` → `v0.3` → `v0.4` → `v0.4.4`)</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 2. Live Lean `v4.36.0` Verification Results (`v0.2` → `v0.3` → `v0.4` → `v0.4.4`).</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>⚡ 30-Second Quick Start</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing ⚡ 30-Second Quick Start.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>3. Quickstart for Contributors</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 3. Quickstart for Contributors.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>3. Regenerate the Official Mathlib Rename Dictionary (Any Two Mathlib Commits)</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 3. Regenerate the Official Mathlib Rename Dictionary (Any Two Mathlib Commits).</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>4. Limitations &amp; Dual-System Design</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 4. Limitations &amp; Dual-System Design.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>4. Run Verified `0 sorry` Mechanical Repair on a Single Module</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 4. Run Verified `0 sorry` Mechanical Repair on a Single Module.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>5. Batch Parallel Run Over All Failures in a Triage File</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 5. Batch Parallel Run Over All Failures in a Triage File.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>5. Community Contributions (`rohanarun/alpoge-rh-replay`)</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 5. Community Contributions (`rohanarun/alpoge-rh-replay`).</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>Highlights of Verified Real Fixes (`0 sorry`, `leanprover/lean4:v4.36.0`)</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Highlights of Verified Real Fixes (`0 sorry`, `leanprover/lean4:v4.36.0`).</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>License</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing License.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>New Mathlib `v4.36.0` Mechanical Transforms in `v0.4` (`src/mathlib436_transforms.py`)</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing New Mathlib `v4.36.0` Mechanical Transforms in `v0.4` (`src/mathlib436_transforms.py`).</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>WERR-Lean-Triage: 0-VRAM System-1 Porting &amp; Migration Helper for Lean 4</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing WERR-Lean-Triage: 0-VRAM System-1 Porting &amp; Migration Helper for Lean 4.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>live_436_v03_report.md</code><br><small style="color:var(--muted)">reports/live_436_v03_report.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing live_436_v03_report.md.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>All 77 Verified `0 sorry` Modules (`leanprover/lean4:v4.36.0`, exit 0)</code><br><small style="color:var(--muted)">reports/live_436_v03_report.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing All 77 Verified `0 sorry` Modules (`leanprover/lean4:v4.36.0`, exit 0).</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Breakdown by Compiler Error Category</code><br><small style="color:var(--muted)">reports/live_436_v03_report.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Breakdown by Compiler Error Category.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Breakdown by Mechanical Repair Operation</code><br><small style="color:var(--muted)">reports/live_436_v03_report.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Breakdown by Mechanical Repair Operation.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>WERR-Lean-Triage v0.3: Live Lean 4.36.0 Verification Report</code><br><small style="color:var(--muted)">reports/live_436_v03_report.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing WERR-Lean-Triage v0.3: Live Lean 4.36.0 Verification Report.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>live_436_v04_report.md</code><br><small style="color:var(--muted)">reports/live_436_v04_report.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing live_436_v04_report.md.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>All 151 Live-Verified `0 sorry` Modules</code><br><small style="color:var(--muted)">reports/live_436_v04_report.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing All 151 Live-Verified `0 sorry` Modules.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>Summary Metrics</code><br><small style="color:var(--muted)">reports/live_436_v04_report.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Summary Metrics.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>Verified Transform Breakdown</code><br><small style="color:var(--muted)">reports/live_436_v04_report.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Verified Transform Breakdown.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>WERR-Lean-Triage v0.4 — Live Lean `v4.36.0` Verification Report</code><br><small style="color:var(--muted)">reports/live_436_v04_report.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing WERR-Lean-Triage v0.4 — Live Lean `v4.36.0` Verification Report.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>README.md</code></td><td>16 nodes</td></tr>
+<tr><td><code>reports/live_436_v03_report.md</code></td><td>5 nodes</td></tr>
+<tr><td><code>reports/live_436_v04_report.md</code></td><td>5 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x23, references x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 5. Tests & Fixtures ====== -->
+<h2 id="tests-fixtures">5. Tests &amp; Fixtures</h2>
+<p>Tests &amp; Fixtures groups implementation around mathlib436, transformspy, test, tests, mostly in src/mathlib436_transforms.py, tests/test_mathlib436_transforms.py, src/triage_parser.py. This section covers 58 nodes and 107 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Tests &amp; Fixtures (58 nodes, 107 edges)
+    subgraph tests_fixtures_src_mathlib436_transforms_py_f77dc9a0["src/mathlib436_transforms.py"]
+        src_mathlib436_transforms_transform_polynomial_c_9db86ed4("transform_polynomial_coeff()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_transform_power_series_2878a800("transform_power_series_ddx()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_transform_prod_le_zero_79f9e1d4("transform_prod_le_zero()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_transform_ldl_lower_in_88e4aac9("lower inv triangular()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_transform_invalid_alt_3aa18b9c("transform_invalid_alt_zero()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_transform_mvpolynomial_8a4063d3("mvpolynomial coeff zero()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_transform_is_integral_9eadc637("algebra map iff()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_transform_finite_field_4d4ef89f("card sub x()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_transform_mathlib436_i_145d5dd9("mathlib436 identifier renames()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_format_receiver_319997f4("_format_receiver()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_read_lean_atom_e208d4c0("_read_lean_atom()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_skip_ws_89cee420("_skip_ws()<br/><small>src/mathlib436_transforms.py</small>")
+        src_mathlib436_transforms_transform_mvpowerserie_fe88a3bc("mvpowerseries pderiv ring()<br/><small>src/mathlib436_transforms.py</small>")
+    end
+    subgraph tests_fixtures_tests_test_mathlib436_transforms_dbe4c21c["tests/test_mathlib436_transforms.py"]
+        tests_test_mathlib436_transforms_b853f6d3("test_mathlib436_transforms.py")
+        tests_test_mathlib436_transforms_test_finite_fie_830296bf("card sub x()<br/><small>tests/test_mathlib436_transforms.py</small>")
+        tests_test_mathlib436_transforms_test_finsupp_ma_cc82e111("finsupp mapdomain apply()<br/><small>tests/test_mathlib436_transforms.py</small>")
+    end
+    re_c387c982("re")
+    src_triage_parser_classify_excerpt_1da4861d("classify_excerpt()<br/><small>src/triage_parser.py</small>")
+    src_mathlib436_transforms_transform_prod_le_zero_79f9e1d4 -->|calls| re_c387c982
+    src_mathlib436_transforms_transform_ldl_lower_in_88e4aac9 -->|calls| re_c387c982
+    src_mathlib436_transforms_transform_invalid_alt_3aa18b9c -->|calls| re_c387c982
+    src_mathlib436_transforms_transform_mvpolynomial_8a4063d3 -->|calls| re_c387c982
+    src_mathlib436_transforms_transform_is_integral_9eadc637 -->|calls| re_c387c982
+    src_mathlib436_transforms_transform_finite_field_4d4ef89f -->|calls| re_c387c982
+    src_mathlib436_transforms_transform_mathlib436_i_145d5dd9 -->|calls| re_c387c982
+    src_mathlib436_transforms_format_receiver_319997f4 -->|calls| re_c387c982
+    src_mathlib436_transforms_read_lean_atom_e208d4c0 -->|calls| src_mathlib436_transforms_skip_ws_89cee420
+    src_mathlib436_transforms_transform_polynomial_c_9db86ed4 -->|calls| re_c387c982
+    src_mathlib436_transforms_transform_polynomial_c_9db86ed4 -->|calls| src_mathlib436_transforms_read_lean_atom_e208d4c0
+    src_mathlib436_transforms_transform_polynomial_c_9db86ed4 -->|calls| src_mathlib436_transforms_format_receiver_319997f4
+    src_mathlib436_transforms_transform_power_series_2878a800 -->|calls| re_c387c982
+    src_mathlib436_transforms_transform_power_series_2878a800 -->|calls| src_mathlib436_transforms_read_lean_atom_e208d4c0
+    src_mathlib436_transforms_transform_mvpowerserie_fe88a3bc -->|calls| re_c387c982
+    src_triage_parser_classify_excerpt_1da4861d -->|calls| re_c387c982
+    tests_test_mathlib436_transforms_test_finite_fie_830296bf -->|calls| src_mathlib436_transforms_transform_finite_field_4d4ef89f
+    %% Omitted for readability: 40 nodes, 0 edges
+    class src_mathlib436_transforms_transform_polynomial_c_9db86ed4 function;
+    class src_mathlib436_transforms_transform_power_series_2878a800 function;
+    class src_mathlib436_transforms_transform_prod_le_zero_79f9e1d4 function;
+    class src_mathlib436_transforms_transform_ldl_lower_in_88e4aac9 function;
+    class src_mathlib436_transforms_transform_invalid_alt_3aa18b9c function;
+    class src_mathlib436_transforms_transform_mvpolynomial_8a4063d3 function;
+    class src_mathlib436_transforms_transform_is_integral_9eadc637 function;
+    class src_mathlib436_transforms_transform_finite_field_4d4ef89f function;
+    class src_mathlib436_transforms_transform_mathlib436_i_145d5dd9 function;
+    class src_mathlib436_transforms_format_receiver_319997f4 function;
+    class src_mathlib436_transforms_read_lean_atom_e208d4c0 function;
+    class src_mathlib436_transforms_skip_ws_89cee420 function;
+    class src_mathlib436_transforms_transform_mvpowerserie_fe88a3bc function;
+    class tests_test_mathlib436_transforms_b853f6d3 test;
+    class tests_test_mathlib436_transforms_test_finite_fie_830296bf test;
+    class tests_test_mathlib436_transforms_test_finsupp_ma_cc82e111 test;
+    class re_c387c982 function;
+    class src_triage_parser_classify_excerpt_1da4861d function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>_format_receiver()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>transform mvpolynomial coeff()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>transform_polynomial_coeff()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><code>re</code></td>
+  <td>_format_receiver() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>_read_lean_atom()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>transform mvpolynomial coeff()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>transform_polynomial_coeff()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>transform_power_series_ddx()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><code>_skip_ws()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td>_read_lean_atom() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>_skip_ws()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_read_lean_atom()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>_skip_ws() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>transform_polynomial_coeff()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>deterministic v04 transforms()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>test_polynomial_coeff()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><code>_format_receiver()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>_read_lean_atom()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>re</code></td>
+  <td>transform_polynomial_coeff() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>transform_power_series_ddx()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>deterministic v04 transforms()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>test_power_series_ddx()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><code>_read_lean_atom()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>re</code></td>
+  <td>transform_power_series_ddx() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>test_polynomial_coeff()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>transform_polynomial_coeff()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>test_power_series_ddx()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>transform_power_series_ddx()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>mathlib436_transforms.py</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>test_mathlib436_transforms.py</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><code>re</code></td>
+  <td>Module file in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Rewrite `Polynomial.coeff p n` -&gt; `p.coeff n` when `Polynomial.coeff` is…</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Rewrite `Polynomial.coeff p n` -&gt; `p.coeff n` when `Polynomial.coeff` is….</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Deterministic, AST/bracket-aware Mathlib v4.33.1 -&gt; v4.36.0 mechanical…</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Deterministic, AST/bracket-aware Mathlib v4.33.1 -&gt; v4.36.0 mechanical….</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Migrate `d⁄dX R f` -&gt; `d⁄dX f` when Lean 4.36 reports an application type…</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Migrate `d⁄dX R f` -&gt; `d⁄dX f` when Lean 4.36 reports an application type….</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>Read one Lean application argument starting at `pos` (balanced parens/brackets…</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Read one Lean application argument starting at `pos` (balanced parens/brackets….</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>Format `expr` for dot notation `expr.coeff ...`, wrapping only if needed.</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Format `expr` for dot notation `expr.coeff ...`, wrapping only if needed..</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>transform_mvpowerseries_pderiv_ring()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>deterministic v04 transforms()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>mvpowerseries pderiv ring()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><code>re</code></td>
+  <td>transform_mvpowerseries_pderiv_ring() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>transform_noncomputable_def()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>deterministic v04 transforms()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>test_noncomputable_def()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><code>re</code></td>
+  <td>transform_noncomputable_def() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>classify_excerpt()</code><br><small style="color:var(--muted)">src/triage_parser.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>parse_results()</code><br><small style="color:var(--muted)">src/triage_parser.py</small></td>
+  <td><code>re</code></td>
+  <td>classify_excerpt() node in src/triage_parser.py.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>test_mvpowerseries_pderiv_ring()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>mvpowerseries pderiv ring()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>test_noncomputable_def()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>transform noncomputable def()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Add `noncomputable` to definitions when Lean 4.36 reports…</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Add `noncomputable` to definitions when Lean 4.36 reports….</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Drop the now-implicit coefficient ring argument from `MvPowerSeries.pderiv R i`…</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Drop the now-implicit coefficient ring argument from `MvPowerSeries.pderiv R i`….</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>re</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_find_map_smul_insert_pos()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>_format_receiver()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>aemeasurable_candidates()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br>+20 more</td>
+  <td>No direct outbound edge</td>
+  <td>re node in project.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>apply_deterministic_v04_transforms()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>attempt_module_repair()</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small><br><code>live_436_benchmark.py</code><br><small style="color:var(--muted)">src/live_436_benchmark.py</small></td>
+  <td><code>algebra map iff()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>card sub x()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>finsupp mapdomain apply()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br>+11 more</td>
+  <td>apply_deterministic_v04_transforms() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>transform_finsupp_mapdomain_apply()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>deterministic v04 transforms()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>finsupp mapdomain apply()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><code>re</code></td>
+  <td>transform_finsupp_mapdomain_apply() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>transform_is_maximal_under()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>deterministic v04 transforms()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>test_is_maximal_under()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>transform_is_maximal_under() node in src/mathlib436_transforms.py.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>test_finsupp_mapdomain_apply()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>finsupp mapdomain apply()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>test_is_maximal_under()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>transform_is_maximal_under()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>Migrate `Ideal.isMaximal_comap_of_isIntegral_of_isMaximal` -&gt;…</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Migrate `Ideal.isMaximal_comap_of_isIntegral_of_isMaximal` -&gt;….</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>Migrate `Finsupp.mapDomain_apply` -&gt; `Finsupp.mapDomain_apply_of_injective`…</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Migrate `Finsupp.mapDomain_apply` -&gt; `Finsupp.mapDomain_apply_of_injective`….</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>Run all deterministic v0.4 transforms in safe order.</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Run all deterministic v0.4 transforms in safe order..</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>transform_mvpolynomial_coeff()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>deterministic v04 transforms()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>mvpolynomial coeff bare()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small><br><code>mvpolynomial coeff multiline()</code><br><small style="color:var(--muted)">tests/test_mathlib436_transforms.py</small><br>+1 more</td>
+  <td><code>_format_receiver()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>_read_lean_atom()</code><br><small style="color:var(--muted)">src/mathlib436_transforms.py</small><br><code>re</code></td>
+  <td>transform_mvpolynomial_coeff() node in src/mathlib436_transforms.py.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/mathlib436_transforms.py</code></td><td>37 nodes</td></tr>
+<tr><td><code>tests/test_mathlib436_transforms.py</code></td><td>18 nodes</td></tr>
+<tr><td><code>src/triage_parser.py</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x37, contains x34, explains x19, indirect call x14. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 6. failing.md ====== -->
+<h2 id="failing-md">6. failing.md</h2>
+<p>failing.md groups implementation around triage, data, failingmd, readmemd, mostly in data/triage/failing.md, data/triage/README.md. This section covers 4 nodes and 3 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: failing.md (4 nodes, 3 edges)
+    subgraph failing_md_data_triage_README_md_6737c213["data/triage/README.md"]
+        data_triage_readme_e53446c5("triage/README.md")
+        data_triage_readme_port_triage_0e76c6a4("Port triage<br/><small>data/triage/README.md</small>")
+    end
+    subgraph failing_md_data_triage_failing_md_ae446eea["data/triage/failing.md"]
+        data_triage_failing_c6826580("failing.md")
+        data_triage_failing_depth_0_modules_that_fail_un_d946393a("Depth-0 modules that fail unchanged on...<br/><small>data/triage/failing.md</small>")
+    end
+    data_triage_readme_e53446c5 -->|references| data_triage_failing_c6826580
+    data_triage_failing_c6826580 -->|contains| data_triage_failing_depth_0_modules_that_fail_un_d946393a
+    data_triage_readme_e53446c5 -->|contains| data_triage_readme_port_triage_0e76c6a4
+    class data_triage_readme_e53446c5 concept;
+    class data_triage_readme_port_triage_0e76c6a4 concept;
+    class data_triage_failing_c6826580 concept;
+    class data_triage_failing_depth_0_modules_that_fail_un_d946393a concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>failing.md</code><br><small style="color:var(--muted)">data/triage/failing.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing failing.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Depth-0 modules that fail unchanged on the port target</code><br><small style="color:var(--muted)">data/triage/failing.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Depth-0 modules that fail unchanged on the port target.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>triage/README.md</code><br><small style="color:var(--muted)">data/triage/README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing triage/README.md.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Port triage</code><br><small style="color:var(--muted)">data/triage/README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Port triage.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>data/triage/README.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>data/triage/failing.md</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x2, references x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<h2 id="stats">Project Statistics</h2>
+
+<div class="grid">
+  <div class="card">
+    <h4>Graph</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>Nodes</td><td>180</td></tr>
+      <tr><td>Edges</td><td>328</td></tr>
+      <tr><td>Hyperedges</td><td>0</td></tr>
+      <tr><td>Communities</td><td>17</td></tr>
+      <tr><td>Documented Sections</td><td>5</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Edge Confidence</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>EXTRACTED</td><td>294</td></tr>
+      <tr><td>INFERRED</td><td>34</td></tr>
+      <tr><td>AMBIGUOUS</td><td>0</td></tr>
+    </table>
+  </div>
+</div>
+
+<div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
+  <p>werr-lean-triage — Architecture Documentation</p>
+  <p>Generated: 2026-11-25 00:16 UTC · graphify callflow-html</p>
+</div>
+
+</div><!-- .container -->
+
+<script>
+(function () {
+  const mermaidConfig = {
+    startOnLoad: false,
+    theme: 'dark',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, useMaxWidth: true },
+    themeVariables: {
+      primaryColor: '#1e293b',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#38bdf8',
+      secondaryColor: '#0f172a',
+      tertiaryColor: '#334155',
+      lineColor: '#64748b',
+      textColor: '#e2e8f0',
+    }
+  };
+
+  mermaid.initialize(mermaidConfig);
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function enhanceMermaidDiagrams() {
+    document.querySelectorAll('.mermaid').forEach((container) => {
+      if (container.dataset.zoomReady === 'true') return;
+      const svg = container.querySelector('svg');
+      if (!svg) return;
+
+      container.dataset.zoomReady = 'true';
+      container.classList.add('is-enhanced');
+
+      const viewport = document.createElement('div');
+      viewport.className = 'mermaid-viewport';
+      svg.parentNode.insertBefore(viewport, svg);
+      viewport.appendChild(svg);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'mermaid-toolbar';
+      toolbar.innerHTML = [
+        '<button type="button" data-action="zoom-out" title="Zoom out">-</button>',
+        '<span class="zoom-level" data-role="level">100%</span>',
+        '<button type="button" data-action="zoom-in" title="Zoom in">+</button>',
+        '<button type="button" data-action="fit" title="Fit width">Fit</button>',
+        '<button type="button" data-action="reset" title="Reset view">Reset</button>'
+      ].join('');
+      container.insertBefore(toolbar, viewport);
+
+      const state = { scale: 1, x: 0, y: 0, dragging: false, startX: 0, startY: 0, originX: 0, originY: 0 };
+      const level = toolbar.querySelector('[data-role="level"]');
+
+      function applyTransform() {
+        svg.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+        level.textContent = `${Math.round(state.scale * 100)}%`;
+      }
+
+      function zoomBy(delta) {
+        state.scale = clamp(state.scale + delta, 0.25, 3);
+        applyTransform();
+      }
+
+      function reset() {
+        state.scale = 1;
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      function fitWidth() {
+        const rawWidth = svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width
+          ? svg.viewBox.baseVal.width
+          : svg.getBoundingClientRect().width / state.scale;
+        if (!rawWidth) {
+          reset();
+          return;
+        }
+        state.scale = clamp((viewport.clientWidth - 48) / rawWidth, 0.25, 1.4);
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      toolbar.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+        const action = button.dataset.action;
+        if (action === 'zoom-in') zoomBy(0.15);
+        if (action === 'zoom-out') zoomBy(-0.15);
+        if (action === 'fit') fitWidth();
+        if (action === 'reset') reset();
+      });
+
+      viewport.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return;
+        event.preventDefault();
+        zoomBy(event.deltaY < 0 ? 0.1 : -0.1);
+      }, { passive: false });
+
+      viewport.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return;
+        state.dragging = true;
+        state.startX = event.clientX;
+        state.startY = event.clientY;
+        state.originX = state.x;
+        state.originY = state.y;
+        viewport.classList.add('is-dragging');
+        viewport.setPointerCapture(event.pointerId);
+      });
+
+      viewport.addEventListener('pointermove', (event) => {
+        if (!state.dragging) return;
+        state.x = state.originX + event.clientX - state.startX;
+        state.y = state.originY + event.clientY - state.startY;
+        applyTransform();
+      });
+
+      function endDrag(event) {
+        if (!state.dragging) return;
+        state.dragging = false;
+        viewport.classList.remove('is-dragging');
+        if (viewport.hasPointerCapture(event.pointerId)) {
+          viewport.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      viewport.addEventListener('pointerup', endDrag);
+      viewport.addEventListener('pointercancel', endDrag);
+      applyTransform();
+    });
+  }
+
+  function renderMermaid() {
+    const result = mermaid.run
+      ? mermaid.run({ querySelector: '.mermaid' })
+      : Promise.resolve();
+    Promise.resolve(result)
+      .then(enhanceMermaidDiagrams)
+      .catch((error) => {
+        console.error('Mermaid render failed:', error);
+        enhanceMermaidDiagrams();
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMermaid);
+  } else {
+    renderMermaid();
+  }
+})();
+</script>
+
+</body>
+</html>
